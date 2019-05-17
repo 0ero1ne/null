@@ -5,7 +5,8 @@ VERSION=$(curl -s https://raw.githubusercontent.com/0ero1ne/null/master/version)
 
 # Visual output
 printf "\n${Red}%14s\n" "^"
-printf "\n${Yellow}$VERSION\n" "^"	
+# Version
+printf "\tVersion: ${Blue}%s\n\n" "$VERSION"
 
 # Iterate all the file in the bin folder
 for f in $(dirname "$0")/*; do
