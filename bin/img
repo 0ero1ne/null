@@ -1,0 +1,9 @@
+#!/usr/local/bin/bash
+# Open an image with preview
+
+if [[ "$1" ]]; then
+    printf "${Green}Opening:${NC} $1 ${Green}on preview...\n"
+    open -a "preview" "$1"
+else
+    printf "${Red}Give me the img!\n"
+fi

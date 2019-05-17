@@ -1,0 +1,21 @@
+#!/usr/local/bin/python3
+# (Ogame) LC to move X resources	
+
+import sys
+import math
+
+if len(sys.argv) < 2:
+	print("Give me the amount of resources you want to move!")
+else:
+	res = int(sys.argv[1])
+	cap = 36250
+
+	lc = math.ceil(res/cap)
+
+	print("----------------------------------")
+	print("Res:",format(res, ',d'))
+	if (res/cap) < 1:
+		print("LC: 1")
+	else:
+		print("LC:",format(lc, ',d'))
+	print("----------------------------------")

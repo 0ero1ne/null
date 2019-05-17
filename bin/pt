@@ -1,0 +1,8 @@
+#!/usr/local/bin/bash
+# Return pattern of file/folder
+
+if [[ -f "$1" ]] || [[ -d "$1" ]]; then
+	printf "${Green}Copied ~ ${Yellow}$PWD/$1${NC}\n"; $(printf "$PWD/$1" | pbcopy)
+else
+	printf "${Red}Give me an input!\n"
+fi

@@ -1,0 +1,13 @@
+#!/usr/local/bin/bash
+# Generate different hashes
+
+if [[ ${#} -gt 0 ]]; then
+    printf "${Green}Generating hashes...\n"
+    printf " ${Red}MD5: ${NC}" ; echo $1 | openssl dgst -md5 -r | cut -d ' ' -f 1
+    printf " ${Red}SHA256: ${NC}" ; echo $1 | openssl dgst -sha256 -r | cut -d ' ' -f 1
+    printf " ${Red}SHA512: ${NC}" ; echo $1 | openssl dgst -sha512 -r | cut -d ' ' -f 1
+    printf " ${Red}Whirlpool: ${NC}" ; echo $1 | openssl dgst -whirlpool -r | cut -d ' ' -f 1
+    #printf "\n"
+else
+    printf "${Green}Give me a string to encrypt!\n"
+fi

@@ -1,0 +1,30 @@
+#!/usr/local/bin/python3
+# Horoscope
+
+import urllib.request
+import sys
+
+list = ['aries','taurus','demini','cancer','leo','virgo','libra','scorpio','sagittarius','capricorn','aquarius','pisces']
+
+if len(sys.argv) > 1:
+	if str(sys.argv[1]).lower() not in list:
+		print('Sign not valid!')
+	else:
+		sign = sys.argv[1]
+		sign = sign.upper()
+	
+		html = urllib.request.urlopen("https://www.freewillastrology.com/horoscopes/printer-friendly")
+		mybytes = html.read()
+		html.close()
+	
+		mybytes = str(mybytes).split('\\n')
+		
+		for c,x in enumerate(mybytes):
+			if sign in x:
+				x = x.split(' ')[13:16]
+				x[0] = x[0][:-5]
+				x = " ".join(x)
+				print(x+")","\n\n",mybytes[c+2][14:-2].replace("\\",""))
+
+else:
+	print('Give me a sign!')

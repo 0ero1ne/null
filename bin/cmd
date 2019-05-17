@@ -1,0 +1,13 @@
+#!/usr/local/bin/bash
+# Command list
+
+cmd=$(cat ~/.bash_profile | grep "alias" | tail -n+2 | cut -f 2 -d' ' | cut -f 1 -d'=')
+info=$(cat ~/.bash_profile | grep "alias" | tail -n+2 | cut -f 2 -d'#')
+
+C1=()
+C2=()
+for i in "$cmd"; do C1+=("$i"); done
+for x in "$info"; do C8+=("$x"); done
+
+
+printf "\n$(paste <(printf "%s" "${C1[@]}") <(printf "%s" "${C2[@]}"))\n\n"

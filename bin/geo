@@ -1,0 +1,34 @@
+#!/usr/local/bin/bash
+# Shows geo location info and DNS server 
+
+# Alternative
+#curl -s "http://ip-api.com/line/?fields=query,status,country,countryCode,region,regionName,city,zip,lat,lon,timezone,isp,org,as,mobile,proxy"
+
+
+# Getting information
+var="$(curl ipinfo.io 2>/dev/null)"
+
+# Dns
+dns="$(curl -s "http://yzuksbn7job9anl78tz9aa5i3u3sd26n.edns.ip-api.com/")"
+
+# Parsing information
+ip="$(<<<"$var" awk -F'"' '$2=="ip"{printf $4}')"
+hostname="$(<<<"$var" awk -F'"' '$2=="hostname"{printf $4}')"
+city="$(<<<"$var" awk -F'"' '$2=="city"{printf $4}')"
+region="$(<<<"$var" awk -F'"' '$2=="region"{printf $4}')"
+country="$(<<<"$var" awk -F'"' '$2=="country"{printf $4}')"
+loc="$(<<<"$var" awk -F'"' '$2=="loc"{printf $4}')"
+postal="$(<<<"$var" awk -F'"' '$2=="postal"{printf $4}')"
+org="$(<<<"$var" awk -F'"' '$2=="org"{printf $4}')"
+
+# Output
+printf "\n${Red}%12s\n" "^"
+printf "${Green}%10s ${Red}| ${Yellow}%s" "Ip" "$ip"
+printf "\n${Green}%10s ${Red}| ${Yellow}%s" "Hostname" "$hostname"
+printf "\n${Green}%10s ${Red}| ${Yellow}%s" "City" "$city"
+printf "\n${Green}%10s ${Red}| ${Yellow}%s" "Region" "$region"
+printf "\n${Green}%10s ${Red}| ${Yellow}%s" "Country" "$country"
+printf "\n${Green}%10s ${Red}| ${Yellow}%s" "Loc" "$loc"
+printf "\n${Green}%10s ${Red}| ${Yellow}%s" "Postal" "$postal"
+printf "\n${Green}%10s ${Red}| ${Yellow}%s" "Org" "$org"
+printf "\n${Green}%10s ${Red}| ${Yellow}%s\n\n" "Dns" "${dns:5}"

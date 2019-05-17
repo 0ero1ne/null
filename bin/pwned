@@ -1,0 +1,10 @@
+#!/usr/local/bin/bash
+# ---[TBC] Have I been pwned?
+
+account="test@test.com"
+http="https://haveibeenpwned.com/api/v2/breachedaccount/$account"
+
+#curl -A "pwnedornot" $http #-p --socks4 91.106.94.178:80
+curl -s -X GET "$http"
+
+echo

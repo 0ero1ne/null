@@ -1,0 +1,31 @@
+#!/usr/local/bin/python3
+# (Ogame) LC to loot whole planet/moon
+
+import sys
+
+if len(sys.argv) < 2:
+	print("Give me the amount fo resources you want to loot!")
+else:
+	tot = int(sys.argv[1])
+	cargo = 36250
+	per = 0.50 # Percentage of loot
+
+	print("----------------------------------")
+	print("Total res:",format(tot, ',d'))
+	print("LC's capacity:",format(cargo, ',d'))
+	print("Loot:",format(per,'.2f')[2:]+"%")
+	print("----------------------------------")
+	
+	c=1
+	tot=int((tot*per)/35000)
+	lc = tot
+	while (tot > 0):
+		print("Wave",c,"of",tot,"LC take",format(tot*35000,',d'))
+		tot=int(tot*per)
+		lc+=tot
+		c+=1
+
+	print("----------------------------------")
+	print("Total waves:",c-1)
+	print("Total LC:",lc)
+	print("----------------------------------")

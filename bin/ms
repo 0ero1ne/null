@@ -1,0 +1,43 @@
+#!/usr/local/bin/bash
+# Macshifter
+
+#networksetup -setairportnetwork $INTERFACE $SSID $PASSWORD
+
+if [[ "${#1}" -eq 17 ]]; then
+	# Setting variables
+	host="8.8.8.8"
+	timeout=10
+	old_mac=$(ifconfig en0 ether | sed -n 2p | cut -d' ' -f 2)
+	new_mac=$1
+
+	network="$(networksetup -getairportnetwork en0 | cut -d':' -f2 | tr -d ' ')"
+
+	printf "${Green}Network: ${Yellow}$network\n"
+	printf "${Green}Old mac: ${Red}$old_mac ${NC}\n"
+	printf "${Green}Mew mac: ${Red}$new_mac \n"
+    printf "${Green}Shifting...\n"
+    
+    sudo ifconfig en0 ether $new_mac # > /dev/null 2>&1
+    
+    sleep 0.5
+
+	printf "Network down...\n"
+	networksetup -setairportpower en0 off
+	
+	sleep 1
+
+	printf "Network up...\n"
+	networksetup -setairportpower en0 on
+	
+	sleep $timeout
+
+	ping -c1 "$host" &> /dev/null
+	if [ $? -eq 0 ]; then
+  		printf "Connected to ${Yellow}$network${Green}\n"	
+	else
+  		printf "Connecting to ${Yellow}$network${Green}...\n"
+		networksetup -setairportnetwork en0 "$network" #2>&1 /dev/null
+	fi
+else
+	printf "${Green}Give me a valid MAC address!\n"
+fi

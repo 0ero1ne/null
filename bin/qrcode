@@ -1,0 +1,37 @@
+#!/usr/local/bin/bash
+# Generate a QR Code using the qrserver's API
+
+url='https://api.qrserver.com/v1/create-qr-code/?size=150x150&data='
+t=$(date +%H-%M-%S)
+file='/tmp/qrcode_'$t'.png'
+
+if [[ "$1" ]]; then
+    if [[ "$2" == '-f' ]]; then
+        open -a firefox -g "$url$1"
+    fi
+
+    printf "${Green}Generating Qr Code...\n"
+    printf "${Green}Code:${Yellow} $url$1\n"
+    printf "${Green}Downloading image...\n"
+
+    # Pulling the image from the server
+    {
+        wget --no-check-certificate "$url$1" -O "$file"
+    } &> /dev/null
+
+    if [[ -f $file ]] && [[ -s $file ]]; then
+        printf "${Green} Image: ${Yellow}$file\n"
+        # Copy URL
+        #$(printf "$url$1" | pbcopy)
+        # Copy local image
+        $(printf "$file" | pbcopy)
+
+        printf "${Green}Copied to the clipboard.\n"
+    else
+        rm $file
+        printf "${Green}Error: network unreachable\n"
+    fi
+
+else
+    printf "${Green}Give me the text for the QR Code!\n"
+fi

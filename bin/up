@@ -1,0 +1,14 @@
+#!/usr/local/bin/bash
+# Connect to a Wi-Fi network
+
+if [[ -n "$1" ]]; then
+	network="$1"
+	
+	printf "${Green}Connecting to:${NC} $network\n"
+	
+	networksetup -setairportpower en0 on
+	sleep 1
+	networksetup -setairportnetwork en0 "$network"
+else
+	printf "${Green}Give me a network!\n"
+fi

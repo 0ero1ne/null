@@ -1,0 +1,44 @@
+#!/usr/local/bin/bash
+# Network information
+
+io=$(networksetup -getairportpower en0)
+IFS=' ' read -r -a i_o <<< "$io"
+io="${i_o[0]} ${i_o[1]} ${i_o[3]}"
+
+check_wifi=$(networksetup -getairportnetwork en0)
+
+if [[ "$check_wifi" != "You are not associated with an AirPort network." ]]; then
+	ip=$(ifconfig en0 inet | sed -n 2p | cut -f 2 -d' ')
+
+	wifi=$(networksetup -getairportnetwork en0)
+	wifi=${wifi:23}
+
+    broadcast=$(ifconfig en0 | grep 'broadcast' | awk '{print $6}')
+else
+	ip='Not connected to a network'
+	wifi='Not connected to a network'
+    broadcast='Not connected to a network'
+fi
+
+imac=$(ifconfig en0 ether | head -n2 | tail -n 1)
+IFS=' ' read -r -a mac <<< "$imac"
+
+gateaway=$(netstat -nr | grep default | head -n 1 | cut -f 13 -d ' ')
+
+
+# Output
+printf "\n${Red}%12s\n" "^"
+printf "${Green}%10s ${Red}| ${Yellow}%s \n" "I/O" "$io"
+printf "${Green}%10s ${Red}| ${Yellow}%s \n" "SSID" "$wifi"
+printf "${Green}%10s ${Red}| ${Yellow}%s \n" "IP" "$ip"
+printf "${Green}%10s ${Red}| ${Yellow}%s \n" "Mac" "${mac[1]^^}"
+printf "${Green}%10s ${Red}| ${Yellow}%s \n" "Broadcast" "$broadcast"
+printf "${Green}%10s ${Red}| ${Yellow}%s \n" "Gateaway" "$gateaway"
+printf "${Green}%10s ${Red}| ${Yellow}%s \n" "Name" "$(scutil --get ComputerName)"
+printf "${Green}%10s ${Red}| ${Yellow}%s \n" "Hostname" "$(scutil --get HostName 2> /dev/null;
+															if [[ $? -eq 0 ]]; then
+																scutil --get HostName; 
+															else 
+																echo "None"; 
+															fi)"
+printf "${Green}%10s ${Red}| ${Yellow}%s \n\n" "Localhost" "$(scutil --get LocalHostName)"

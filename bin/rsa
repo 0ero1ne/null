@@ -1,0 +1,13 @@
+#!/usr/local/bin/bash
+# RSA key generator
+
+if [[ "$1" ]]; then
+    openssl genrsa -out /tmp/$1 2048
+    printf "\n %s" "$(cat /tmp/$1)"
+    $(cat /tmp/$1 | pbcopy)
+    
+    printf "\n\n${Green}Key path ~ ${Yellow}/tmp/$1"
+    printf "\n${Green}Copied to the clipboard!\n"
+else
+    printf "${Red}Give me a name for the key!\n"
+fi

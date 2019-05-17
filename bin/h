@@ -1,0 +1,29 @@
+#!/usr/local/bin/bash
+# Shows this help
+
+# Visual output
+printf "\n${Red}%14s\n" "^"	
+
+# Iterate all the file in the bin folder
+for f in $(dirname "$0")/*; do
+	# Check if the first char of the script is a #
+	if [[ "$(head -n 1 $f | cut -c1-1)" == "#" ]]; then 
+
+		# Set app name as variable
+		app=$(basename $f)
+
+		# Check if the second line has a #, means has a description
+		if [[ "$(sed -n 2p $f | cut -c1-1)" == "#" ]]; then
+			# Set app's info
+			info=$(sed -n 2p $f)
+
+			# Output
+			printf "${Green}%12s ${Yellow}%s\n" "$app" "$info"
+    	else
+    		# If no info print standard message
+    		printf "${Green}%12s ${Red}%s\n" "$app" "(No info)"
+    	fi
+    fi
+done
+
+echo

@@ -1,0 +1,5 @@
+#!/usr/local/bin/bash
+# Generate a MAC address
+
+printf "${Green}Random MAC: ${NC}"
+openssl rand -hex 6 | sed 's/\(..\)/\1:/g; s/.$//'
