@@ -1,9 +1,9 @@
 #!/usr/local/bin/bash
 # shows this help
-# 0.2-a1
+# 0.2-a3
 # software manager for scripts
 
-current_version=0.2-a1
+current_version=0.2-a3
 
 # Visual output
 printf "\n${Red}%14s\n" "^"
@@ -52,7 +52,7 @@ case $1 in
 			
 		else
 			# Error message for empty argument
-			printf "${Red} Give me a key to search!\n\n"
+			printf "${Red}%28s\n\n" "Give me a key to search!"
 		fi
 	;;
 
@@ -79,7 +79,7 @@ case $1 in
 			printf "${Red}\tApp not found!\n\n"
 		else
 			# Error message for empty argument
-			printf "${Red} Give me an app to search!\n\n"
+			printf "${Red}%25s\n\n" "Give me an app name!"
 		fi
 	;;
 
