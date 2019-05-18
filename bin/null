@@ -70,10 +70,12 @@ case $1 in
 	    			printf "${NC}Version:${Green}$(cat $f | sed -n '3p' | cut -d '#' -f 2)\n"
 	    			# Description
 	    			printf "${NC}Description:${Green}$(cat $f | sed -n '4p' | cut -d '#' -f 2)\n"
-	    			# TODO
-	    			printf "${NC}TODO:${Green}\n$(cat $f | sed -n '/# TODO/,/# EOT/p' | sed '1d;$d' | tail -c +2)\n\n"
-
+	    			# if TODO exist print the list
+	    			if [[ $(cat $f | sed -n '/# TODO/,/# EOT/p' | sed '1d;$d' | tail -c +2) ]];then 
+	    				printf "${NC}TODO:${Green}\n$(cat $f | sed -n '/# TODO/,/# EOT/p' | sed '1d;$d' | tail -c +2)\n"
+	    			fi
 	    			# App found, exit 0
+	    			echo	
 	    			exit 0
     			fi
 			done
