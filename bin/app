@@ -6,7 +6,7 @@ if [ "$1" ]; then
 	# Iterate apps
 	for f in $(dirname "$0")/*; do
 		# If the argument match the name of the app
-	    if [[ "$(echo $f | cut -f 5 -d '/')" ==	 "$1" ]]; then
+	    if [[ "$(basename $f)" == "$1" ]]; then
 	    	
 	    	# Return positive message
 	    	printf "${Green}App found!\n"
