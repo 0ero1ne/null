@@ -4,7 +4,6 @@ A bash made packet manager for scripts.
 **Compatible with Unix/OSX.**
 
 ## Contents
-* **version**: version of the current release
 * **bin**: folder where all scripts are stored
 
 ## Notes
