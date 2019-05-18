@@ -85,8 +85,9 @@ case $1 in
 
 	"-u")
 		printf "Checking for updates...${NC}"
-		last_version=$(curl -s https://raw.githubusercontent.com/0ero1ne/null/master/version)
-		if [ $(expr ${current_version} \< ${last_version}) -eq 1 ]; then
+		last_version=$(curl -s https://raw.githubusercontent.com/0ero1ne/null/master/bin/null | sed -n "3p" | cut -d ' ' -f 2)
+		#if [ $(expr ${current_version} \< ${last_version}) -eq 1 ]; then
+		if [ "$current_version" -eq "$last_version" ]; then
 			printf "\nA newer version has been found.\n"
 		else
 			printf "\nUp-to-date.\n"
