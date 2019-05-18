@@ -1,7 +1,11 @@
 #!/usr/local/bin/bash
 # database manager
-# 0.5
+# 0.5-a1
 # manage the database for file indexing
+
+# TODO
+# - give the user more option
+# EOT
 
 if [[ -f /var/db/locate.database ]]; then
 	printf "${Green}Database: ${NC}/var/db/locate.database\n"

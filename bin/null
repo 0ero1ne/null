@@ -59,7 +59,7 @@ case $1 in
 	"-i")
 		if [ "$2" ]; then
 			# Iterate apps
-			# DEPRECATE; WILL USE FIND INSTEAD
+			# DEPRECATE; WILL USE FIND INSTEAD?
 			for f in $(dirname "$0")/*; do
 				# If the argument match the name of the app
 				# Pars information
@@ -69,7 +69,9 @@ case $1 in
 	    			# Version
 	    			printf "${NC}Version:${Green}$(cat $f | sed -n '3p' | cut -d '#' -f 2)\n"
 	    			# Description
-	    			printf "${NC}Description:${Green}$(cat $f | sed -n '4p' | cut -d '#' -f 2)\n\n"
+	    			printf "${NC}Description:${Green}$(cat $f | sed -n '4p' | cut -d '#' -f 2)\n"
+	    			# TODO
+	    			printf "${NC}TODO:${Green}\n$(cat $f | sed -n '/# TODO/,/# EOT/p' | sed '1d;$d' | tail -c +2)\n\n"
 
 	    			# App found, exit 0
 	    			exit 0
