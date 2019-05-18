@@ -1,5 +1,7 @@
 #!/usr/local/bin/python3
-# (Ogame) LC to move X resources	
+# Ogame resources calculator
+# 0.5
+# (Ogame) calculate how many LC you need to to move X resources
 
 import sys
 import math

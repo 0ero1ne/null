@@ -1,5 +1,7 @@
 #!/usr/local/bin/bash
-# Macshifter
+# macshifter
+# 1.0
+# this script will shift your mac address to a given one
 
 #networksetup -setairportnetwork $INTERFACE $SSID $PASSWORD
 

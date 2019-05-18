@@ -1,5 +1,7 @@
 #!/usr/local/bin/bash
 # RSA key generator
+# 1.0
+# generate a RSA key using openssl at 2048 bit
 
 if [[ "$1" ]]; then
     openssl genrsa -out /tmp/$1 2048

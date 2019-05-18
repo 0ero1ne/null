@@ -1,5 +1,7 @@
 #!/usr/local/bin/bash
-# World Clock
+# world clock
+# 0.5-b1
+# terminal clock with customized time zones
 
 TIME_ZONES="Europe/Rome America/Los_Angeles Europe/London Australia/Brisbane"
 OUTPUT=""

@@ -1,5 +1,7 @@
 #!/usr/local/bin/python3
-# (Ogame) LC to loot whole planet/moon
+# Ogame loot calculator
+# 0.5
+# (Ogame) calculate how many LC are necessary to loot a whole planet/moon
 
 import sys
 

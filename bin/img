@@ -1,4 +1,6 @@
 #!/usr/local/bin/bash
+# image opener
+# 1.0
 # Open an image with preview
 
 if [[ "$1" ]]; then

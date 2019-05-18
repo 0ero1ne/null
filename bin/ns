@@ -1,5 +1,7 @@
 #!/usr/local/bin/bash
-# Network speed
+# network speed
+# 1.0
+# return the speed in ms between client and server
 
 if [[ -n "$1" ]]; then
 	server=$1

@@ -1,5 +1,7 @@
 #!/usr/local/bin/bash
-# Wifi Tool
+# wi-fi Tool
+# 0.8-b1
+# wi-fi tool for OSX to control your wifi, antenna and sniff packets
 
 host="8.8.8.8"
 timeout=10

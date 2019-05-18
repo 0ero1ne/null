@@ -1,5 +1,7 @@
 #!/usr/local/bin/bash
-# Return pattern of file/folder
+# pattern info
+# 1.0
+# Return pattern of file/folder and copy it into clipboard
 
 if [[ -f "$1" ]] || [[ -d "$1" ]]; then
 	printf "${Green}Copied ~ ${Yellow}$PWD/$1${NC}\n"; $(printf "$PWD/$1" | pbcopy)

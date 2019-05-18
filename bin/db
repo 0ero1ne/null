@@ -1,5 +1,7 @@
 #!/usr/local/bin/bash
-# Database manager
+# database manager
+# 0.5
+# manage the database for file indexing
 
 if [[ -f /var/db/locate.database ]]; then
 	printf "${Green}Database: ${NC}/var/db/locate.database\n"

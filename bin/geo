@@ -1,9 +1,11 @@
 #!/usr/local/bin/bash
-# Shows geo location info and DNS server 
+# location and info
+# 1.0
+# shows geo location informations and DNS server
+
 
 # Alternative
 #curl -s "http://ip-api.com/line/?fields=query,status,country,countryCode,region,regionName,city,zip,lat,lon,timezone,isp,org,as,mobile,proxy"
-
 
 # Getting information
 var="$(curl ipinfo.io 2>/dev/null)"

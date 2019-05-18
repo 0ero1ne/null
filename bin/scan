@@ -1,5 +1,7 @@
 #!/usr//bin/env python3
-# Network scanner parser
+# nmap parser
+# 0.8-b1
+# parse the output from nmap and check the MAC address vendor
 
 import subprocess
 import socket

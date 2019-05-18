@@ -1,7 +1,0 @@
-#!/usr/local/bin/bash
-# Disconnect from Wi-Fi network
-
-printf "${Green}Disconnecting...${NC}\n"
-networksetup -setairportpower en0 off
-sleep 1
-networksetup -setairportpower en0 on

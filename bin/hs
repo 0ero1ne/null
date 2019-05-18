@@ -1,5 +1,7 @@
 #!/usr/local/bin/python3
-# Horoscope
+# horoscope
+# 0.8
+# pars the horoscope from freewillastrology.com
 
 import urllib.request
 import sys

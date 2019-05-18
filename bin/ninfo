@@ -1,5 +1,7 @@
 #!/usr/local/bin/bash
-# Network information
+# network information
+# 1.0
+# shows all the network informations of the local host
 
 io=$(networksetup -getairportpower en0)
 IFS=' ' read -r -a i_o <<< "$io"

@@ -1,5 +1,7 @@
 #!/usr/local/bin/bash
-# Search engine
+# search engine
+# 1.0
+# search a keyword from a list of websites
 
 # Engines
 declare -A ENGINES=( 

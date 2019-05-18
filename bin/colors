@@ -1,5 +1,7 @@
 #!/usr/local/bin/bash
-# Color test
+# terminal colors test
+# 1.0
+# print all possible colors and variation
 
 printf "          "
 for b in 0 1 2 3 4 5 6 7; do printf "  4${b}m "; done

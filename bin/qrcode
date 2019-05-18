@@ -1,5 +1,11 @@
 #!/usr/local/bin/bash
+# qrcode generator
+# 0.5-a1
 # Generate a QR Code using the qrserver's API
+
+# TODO
+# - check if qrencode is installed
+# - give the option to choose between qrencode and qrserver 
 
 url='https://api.qrserver.com/v1/create-qr-code/?size=150x150&data='
 t=$(date +%H-%M-%S)
