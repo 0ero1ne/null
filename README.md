@@ -1,6 +1,5 @@
-# null
-null (0x00)
-A bash packet manager for scripts
+# null (0x00)
+A bash made packet manager for scripts.
 
 **Compatible with Unix/OSX.**
 
