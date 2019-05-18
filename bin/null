@@ -1,7 +1,7 @@
 #!/usr/local/bin/bash
 # shows this help
 # 0.2-a1
-# packet manager for scripts
+# software manager for scripts
 
 current_version=0.2-a1
 
@@ -47,12 +47,12 @@ case $1 in
 				printf "${NC}Results:\n"
 				printf "$output\n\n"
 			else
-				printf "${Red}\tNo results found!\n"
+				printf "${Red}\tNo results found!\n\n"
 			fi
 			
 		else
 			# Error message for empty argument
-			printf "${Red} Give me a key to search!\n"
+			printf "${Red} Give me a key to search!\n\n"
 		fi
 	;;
 
@@ -84,13 +84,14 @@ case $1 in
 	;;
 
 	"-u")
-		printf "Checking for updates...${NC}"
+		printf "${NC}Checking for updates..."
 		last_version=$(curl -s https://raw.githubusercontent.com/0ero1ne/null/master/bin/null | sed -n "3p" | cut -d ' ' -f 2)
-		#if [ $(expr ${current_version} \= ${last_version}) -eq 1 ]; then
 		if [ $current_version == $last_version ]; then
-			printf "\nA newer version has been found.\n"
+			printf "\n${Green}Up-to-date.\n\n"
 		else
-			printf "\nUp-to-date.\n"
+			printf "\n\nA new version has been found!\n"
+			printf "\n${Red}Current version: ${NC}$current_version"
+			printf "\n${Green}  Newer version: ${NC}$last_version\n\n"
 		fi
 	;;
 
@@ -103,3 +104,5 @@ case $1 in
 \n"""
 	;;
 esac
+
+# EOF
