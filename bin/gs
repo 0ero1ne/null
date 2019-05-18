@@ -1,0 +1,16 @@
+#!/usr/local/bin/bash
+# download website
+# 0.5
+# download an entire website using recursive option
+
+# ERROR MESSAGE CHECK
+wget \
+     --recursive \
+     --no-clobber \
+     --page-requisites \
+     --adjust-extension \
+     --span-hosts \
+     --convert-links \
+     --domains $1 \
+     --no-parent \
+$1

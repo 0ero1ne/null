@@ -1,0 +1,104 @@
+#!/usr/local/bin/bash
+# shows this help
+# 0.2-a1
+# packet manager for scripts
+
+current_version=0.2-a1
+
+# Visual output
+printf "\n${Red}%14s\n" "^"
+# Version
+printf "${Yellow}%16s\n" ".null"
+printf "\t${NC}Version: ${Blue}%s\n\n" "$VERSION"
+
+case $1 in
+	"-l")
+		# List of all installed scripts
+		# Iterate all the file in the bin folder
+		for f in $(dirname "$0")/*; do
+			# Check if the first char of the script is a #
+			if [[ "$(head -n 1 $f | cut -c1-1)" == "#" ]]; then 
+				
+				# Set App name as variable
+				app=$(basename $f)
+		
+				# Check if the second line has a #, means has a description
+				if [[ "$(sed -n 2p $f | cut -c1-1)" == "#" ]]; then
+					# Set app's info
+					info=$(sed -n 2p $f)
+		
+					# Output
+					printf "${Green}%12s ${Yellow}%s\n" "$app" "$info"
+    			else
+    				# If no info print standard message
+    				printf "${Green}%12s ${Red}%s\n" "$app" "(No info)"
+    			fi
+    		fi
+		done
+		printf "\n"
+	;;
+
+	"-s")
+		#'h | grep -i $1'
+		if [ "$2" ]; then
+			# Search all the entries
+			output=$(null -l | grep -i "$2")
+			if [ -n "$output" ]; then
+				printf "${NC}Results:\n"
+				printf "$output\n\n"
+			else
+				printf "${Red}\tNo results found!\n"
+			fi
+			
+		else
+			# Error message for empty argument
+			printf "${Red} Give me a key to search!\n"
+		fi
+	;;
+
+	"-i")
+		if [ "$2" ]; then
+			# Iterate apps
+			# DEPRECATE; WILL USE FIND INSTEAD
+			for f in $(dirname "$0")/*; do
+				# If the argument match the name of the app
+				# Pars information
+	    		if [[ "$(basename $f)" == "$2" ]]; then	    	
+	    			# HEAD
+	    			printf "${NC}Name: ${Green}$(basename $f)$NC\n"
+	    			# Version
+	    			printf "${NC}Version:${Green}$(cat $f | sed -n '3p' | cut -d '#' -f 2)\n"
+	    			# Description
+	    			printf "${NC}Description:${Green}$(cat $f | sed -n '4p' | cut -d '#' -f 2)\n\n"
+
+	    			# App found, exit 0
+	    			exit 0
+    			fi
+			done
+			# Loop end, return error message
+			printf "${Red}\tApp not found!\n\n"
+		else
+			# Error message for empty argument
+			printf "${Red} Give me an app to search!\n\n"
+		fi
+	;;
+
+	"-u")
+		printf "Checking for updates...${NC}"
+		last_version=$(curl -s https://raw.githubusercontent.com/0ero1ne/null/master/version)
+		if [ $(expr ${current_version} \< ${last_version}) -eq 1 ]; then
+			printf "\nA newer version has been found.\n"
+		else
+			printf "\nUp-to-date.\n"
+		fi
+	;;
+
+	*)
+		printf "${NC}"
+		printf """\t-l to list 
+\t-s to search 
+\t-i to info
+\t-u to update
+\n"""
+	;;
+esac
