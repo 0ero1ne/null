@@ -9,7 +9,7 @@ current_version=0.2-a1
 printf "\n${Red}%14s\n" "^"
 # Version
 printf "${Yellow}%16s\n" ".null"
-printf "\t${NC}Version: ${Blue}%s\n\n" "$VERSION"
+printf "\t${NC}Version: ${Blue}%s\n\n" "$current_version"
 
 case $1 in
 	"-l")
@@ -86,8 +86,8 @@ case $1 in
 	"-u")
 		printf "Checking for updates...${NC}"
 		last_version=$(curl -s https://raw.githubusercontent.com/0ero1ne/null/master/bin/null | sed -n "3p" | cut -d ' ' -f 2)
-		#if [ $(expr ${current_version} \< ${last_version}) -eq 1 ]; then
-		if [ "$current_version" -eq "$last_version" ]; then
+		#if [ $(expr ${current_version} \= ${last_version}) -eq 1 ]; then
+		if [ $current_version == $last_version ]; then
 			printf "\nA newer version has been found.\n"
 		else
 			printf "\nUp-to-date.\n"
