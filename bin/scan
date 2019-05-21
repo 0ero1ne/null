@@ -101,7 +101,9 @@ def scan():
 
 			vendor = requests.get("https://api.macvendors.com/"+mac)
 
+			print(vendor.text)
 			print(vendor.text.split("\""))
+			print("LEN: ",len(vendor.text.split("\"")))
 
 			# Mac vendor extraction
 			if "errors" in vendor.text.split("\""):

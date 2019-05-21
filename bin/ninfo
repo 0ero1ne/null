@@ -27,7 +27,6 @@ IFS=' ' read -r -a mac <<< "$imac"
 
 gateaway=$(netstat -nr | grep default | head -n 1 | cut -f 13 -d ' ')
 
-
 # Output
 printf "\n${Red}%12s\n" "^"
 printf "${Green}%10s ${Red}| ${Yellow}%s \n" "I/O" "$io"
@@ -36,6 +35,7 @@ printf "${Green}%10s ${Red}| ${Yellow}%s \n" "IP" "$ip"
 printf "${Green}%10s ${Red}| ${Yellow}%s \n" "Mac" "${mac[1]^^}"
 printf "${Green}%10s ${Red}| ${Yellow}%s \n" "Broadcast" "$broadcast"
 printf "${Green}%10s ${Red}| ${Yellow}%s \n" "Gateaway" "$gateaway"
+
 printf "${Green}%10s ${Red}| ${Yellow}%s \n" "Name" "$(scutil --get ComputerName)"
 printf "${Green}%10s ${Red}| ${Yellow}%s \n" "Hostname" "$(scutil --get HostName 2> /dev/null;
 															if [[ $? -eq 0 ]]; then
