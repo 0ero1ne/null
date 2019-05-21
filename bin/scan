@@ -1,6 +1,6 @@
 #!/usr//bin/env python3
 # nmap parser
-# 0.9-a1
+# 0.9-a2
 # nmap parser with some cool features
 
 # TODO
@@ -50,16 +50,23 @@ def get_ip_address():
 
 # Parse function
 def parse():
+	# Iterate through active clients
 	for y in self.clients:
+		# If the client is not in old list gets add
 		if y not in self.old_clients:
 			self.old_clients.append(y)
+			# Voice connected
 			up="say -v Alex "+y+" connected."
 			os.system(up)
 
+	# Iterate through old clients for disconnected clients
 	for index,x in enumerate(self.old_clients):
+		# If old client not in the list of actives
 		if x not in self.clients:
+			# Voice disconnected
 			down="say -v Alex "+x+" disconnected."
 			os.system(down)
+			# Remove client from old list
 			self.old_clients.pop(index)		
 
 
@@ -93,13 +100,13 @@ def scan():
 			print("\x1b[1;32mMAC:\x1b[1;33m",mac+"\x1b[0m")
 
 			vendor = requests.get("https://api.macvendors.com/"+mac)
-			
+
+			print(vendor.text.split("\""))
+
 			# Mac vendor extraction
-			if vendor.text.split("\"")[1] == "errors":
+			if "errors" in vendor.text.split("\""):
 				print("\x1b[1;32mVendor:\x1b[1;33m",nvendor,"\n"+"\x1b[0m")
 			else:
-				vendor = requests.get("https://api.macvendors.com/"+mac)
-				print(vendor.text.split("\"")[2])
 				print("\x1b[1;32mVendor:\x1b[1;33m",vendor.text,"\n"+"\x1b[0m")
 				time.sleep(1)
 

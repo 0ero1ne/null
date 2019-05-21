@@ -1,6 +1,6 @@
 #!/usr/local/bin/bash
 # network speed
-# 1.0
+# 0.9-b1
 # return the speed in ms between client and server
 
 if [[ -n "$1" ]]; then
@@ -17,9 +17,9 @@ do
 	ping -c 1 -t 1 -W 1000 $server > /dev/null 2>&1
 	if [[ "$?" -eq 0 ]]; then
 		data=$(ping -c 1 -s 20 -t 1 $server | cut -f 4 -d '=' | head -n 2 | tail -n 1)
-		printf "${Green}%10s ${Red}| ${Yellow}%s   \r" "Speed" "$data"
+		printf "${Green}%10s ${Red}| ${Yellow}%s       \r" "Speed" "$data"
 	else
-		printf "${Green}%10s ${Red}| ${Yellow}%s   \r" "Speed" "$data"
+		printf "${Green}%10s ${Red}| ${Yellow}%s       \r" "Speed" "$data"
 	fi
 	sleep 0.2
 done
