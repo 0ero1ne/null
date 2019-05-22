@@ -1,7 +1,7 @@
 # null (0x00)
 A bash packet manager manly for scripts.
 
-**Compatible only with OSX.** (will be compatible on unix/linux in the future)
+**Compatible with OSX.** (unix/linux in the future)
 
 
 ## Description
