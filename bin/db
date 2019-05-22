@@ -1,6 +1,6 @@
 #!/usr/local/bin/bash
 # database manager
-# 0.5-a1
+# 0.5-b1
 # manage the database for file indexing
 
 # TODO
@@ -10,10 +10,13 @@
 if [[ -f /var/db/locate.database ]]; then
 	printf "${Green}Database: ${NC}/var/db/locate.database\n"
 	printf "${Green}Updating database...${NC}\n"
-	sudo /usr/libexec/locate.updatedb
+	#sudo 
+	/usr/libexec/locate.updatedb
 else
 	printf "${Green}Database not found, building one...!${NC}\n"
-	sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.locate.plist
+	#sudo 
+	launchctl load -w /System/Library/LaunchDaemons/com.apple.locate.plist
 	printf "${Green}Updating database...${NC}\n"
-	sudo /usr/libexec/locate.updatedb
+	#sudo 
+	/usr/libexec/locate.updatedb
 fi
