@@ -93,7 +93,7 @@ case $1 in
 
 	"-u")
 		printf "${NC}Checking for updates..."
-		last_version=$(curl -s https://raw.githubusercontent.com/0ero1ne/null/master/null | grep "current_version=" | cut -f 2 -d '=')
+		last_version=$(curl -s https://raw.githubusercontent.com/0ero1ne/null/master/null | grep current_version= | head -n 1 | cut -f 2 -d '=')
 		if [ $current_version == $last_version ]; then
 			printf "\n${Green}Up-to-date.\n\n"
 		else
