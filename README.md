@@ -3,6 +3,7 @@ A bash packet manager manly for scripts.
 
 **Compatible only with OSX.** (will be compatible on unix/linux in the future)
 
+
 ## Description
 null is a packet manager written in Bash to help better organize scripts and programs.
 Has different functions built-in to help the user manage every single package.
@@ -81,6 +82,7 @@ Up-to-date.
 
  [ 0x00 ~/Github/null ]
 ```
+
 
 ## Notes
 If you want to collaborate or have any question don't hesitate to contact me.
