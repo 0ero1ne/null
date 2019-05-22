@@ -1,0 +1,33 @@
+#!/usr/local/bin/bash
+# maintenance script
+# 0.5-a1
+# execute list of commands for the maintenance of the system
+
+# TODO
+# - check if the command return 0 or 1
+# EOT
+
+clear
+
+printf "${Yellow}Maintenance script\n\n"
+
+declare -A cmd;      declare -a ex;
+cmd["dotfiles"]="cloud"; 						ex+=( "dotfiles" )
+cmd["cleanup"]="brew cleanup"; 					ex+=( "cleanup" )
+cmd["doctor"]="brew doctor"; 					ex+=( "doctor" )
+cmd["update"]="brew update"; 					ex+=( "update" )
+cmd["upgrade"]="brew upgrade"; 					ex+=( "upgrade" )
+cmd["apple-update"]="softwareupdate -i -a"; 	ex+=( "apple-update" )
+cmd["db-update"]="db"; 							ex+=( "db-update" )
+
+for i in "${ex[@]}"
+do
+    printf "${Red}Running ${Blue}%-15s" "$i"
+    eval "${cmd[$i]}" &>/dev/null
+    printf "${Green}%5s\n" "OK"
+done
+
+printf "\n${Yellow}Finished\n"
+
+afplay -v -0.5 "/Users/0x00/Music/shell/alien_pistol.mp3" &
+disown $!
