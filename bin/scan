@@ -62,6 +62,11 @@ def up():
 				up="say -v Alex "+y+" connected."
 				os.system(up)
 
+			# If alert is on display notification 
+			if "-a" in self.cmd:
+				alert="osascript -e 'display notification \""+y+" connected\" with title \"scan\" sound name \"Hero\"'"
+				os.system(alert)
+
 	# Iterate through old clients for disconnected clients
 	for index,x in enumerate(self.old_clients):
 		# If old client not in the list of actives
@@ -72,6 +77,11 @@ def up():
 				# Voice disconnected
 				up="say -v Alex "+y+" connected."
 				os.system(up)
+
+			# If alert is on display notification
+			if "-a" in self.cmd:
+				alert="osascript -e 'display notification \""+y+" disconnected\" with title \"scan\" sound name \"Hero\"'"
+				os.system(alert)
 			
 			# Remove client from old list
 			self.old_clients.pop(index)		
@@ -138,7 +148,7 @@ def main():
 			# Needs improvements
 			# Help
 			if "-help" in self.cmd:
-				print("Usage: scan -l [loop mode] -v [voice]")
+				print("Usage: scan -l [loop mode] -v [voice] -a [alert]")
 
 			# If loop option
 			elif "-l" in self.cmd:		
