@@ -38,7 +38,7 @@ List
       secret # string crypter
      str2rev # print a string in different ways
       wclock # world clock
-        wifi # wi-fi Tool
+        wifi # wi-fi tool
 
  [ 0x00 ~/Github/null ]
  ```
