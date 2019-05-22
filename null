@@ -1,6 +1,6 @@
 #!/usr/local/bin/bash
 # shows this help
-# 0.2-a3
+# 0.2-a4
 # software manager for scripts
 
 # TODO
@@ -12,8 +12,8 @@ current_version=0.2-a3
 # Visual output
 printf "\n${Red}%14s\n" "^"
 # Version
-printf "${Yellow}%16s\n" ".null"
-printf "\t${NC}Version: ${Blue}%s\n\n" "$current_version"
+printf "${Yellow}%12s${NC} [${Blue}%s${NC}]\n\n" ".null" "$current_version"
+#printf "\t${NC}[${Blue}%s${NC}]\n\n" 
 
 case $1 in
 	"-l")
