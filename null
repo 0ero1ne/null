@@ -1,4 +1,4 @@
-	#!/usr/local/bin/bash
+#!/usr/local/bin/bash
 # shows this help
 # 0.2-a3
 # software manager for scripts
@@ -19,7 +19,7 @@ case $1 in
 	"-l")
 		# List of all installed scripts
 		# Iterate all the file in the bin folder
-		for f in $(dirname "$0")/*; do
+		for f in $(dirname "$0")/bin/*; do
 			# Check if the first char of the script is a #
 			if [[ "$(head -n 1 $f | cut -c1-1)" == "#" ]]; then 
 				
@@ -64,7 +64,7 @@ case $1 in
 		if [ "$2" ]; then
 			# Iterate apps
 			# DEPRECATE; WILL USE FIND INSTEAD?
-			for f in $(dirname "$0")/*; do
+			for f in $(dirname "$0")/bin/*; do
 				# If the argument match the name of the app
 				# Pars information
 	    		if [[ "$(basename $f)" == "$2" ]]; then	    	
@@ -93,7 +93,7 @@ case $1 in
 
 	"-u")
 		printf "${NC}Checking for updates..."
-		last_version=$(curl -s https://raw.githubusercontent.com/0ero1ne/null/master/bin/null | sed -n "3p" | cut -d ' ' -f 2)
+		last_version=$(curl -s https://raw.githubusercontent.com/0ero1ne/null/master/null | sed -n "3p" | cut -d ' ' -f 2)
 		if [ $current_version == $last_version ]; then
 			printf "\n${Green}Up-to-date.\n\n"
 		else
