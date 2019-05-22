@@ -4,8 +4,7 @@
 # nmap parser with some cool features
 
 # TODO
-# - more tests
-# - improve args check in main function
+# - improve arguments handle
 # EOT
 
 
@@ -21,6 +20,7 @@ import os
 
 # Global variables
 class self:
+	cmd = []
 	old_clients = []
 	clients = []
 
@@ -48,24 +48,31 @@ def get_ip_address():
     return s.getsockname()[0]
 
 
-# Parse function
-def parse():
+# Up - Down
+def up():
 	# Iterate through active clients
 	for y in self.clients:
 		# If the client is not in old list gets add
 		if y not in self.old_clients:
 			self.old_clients.append(y)
-			# Voice connected
-			up="say -v Alex "+y+" connected."
-			os.system(up)
+			
+			# Check if voice command is in arguments list
+			if "-v" in self.cmd:
+				# Voice connected
+				up="say -v Alex "+y+" connected."
+				os.system(up)
 
 	# Iterate through old clients for disconnected clients
 	for index,x in enumerate(self.old_clients):
 		# If old client not in the list of actives
 		if x not in self.clients:
-			# Voice disconnected
-			down="say -v Alex "+x+" disconnected."
-			os.system(down)
+
+			# Check if voice command is in arguments list
+			if "-v" in self.cmd:
+				# Voice disconnected
+				up="say -v Alex "+y+" connected."
+				os.system(up)
+			
 			# Remove client from old list
 			self.old_clients.pop(index)		
 
@@ -95,9 +102,7 @@ def scan():
 			else:
 				name = str(x.split(",")[0]).split(" ")[4]
 
-			# Get IP
 			ip = str(str(x.split(",")[0]).split(" ")[-1]).translate({ord(i): None for i in '()'})[:-1]
-
 			mac = str(x.split(",")[2]).split(" ")[3]
 			nvendor = x.split("(")[-1][:-5]
 	
@@ -123,13 +128,23 @@ def scan():
 
 # Main function
 def main():
-		# If loop mode 
+		# Check for any arguments
 		if len(sys.argv) > 1:
-			if sys.argv[1] == "-l":
+			# Store arguments in a list
+			for arg in sys.argv[1:]:
+				self.cmd.append(arg)
+
+			# Help
+			if "-help" in self.cmd:
+				print("Usage: scan -l [loop mode] -v [voice]")
+			# If loop mode
+			elif "-l" in self.cmd:
 				while KeyboardInterrupt:
 					scan()
-					parse()
+					up()
 					time.sleep(5)
+
+		# If no arguments do a one-time scan
 		else:
 			scan()
 
