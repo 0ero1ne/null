@@ -7,7 +7,7 @@
 # - fix todo output
 # EOT
 
-current_version=0.2-a5-rev2
+current_version=0.2-a5-rev3
 
 # Visual output
 printf "\n${Red}%14s\n" "^"
