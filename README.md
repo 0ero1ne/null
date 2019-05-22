@@ -4,6 +4,11 @@ A bash packet manager manly for scripts.
 **Compatible with OSX.** (unix/linux in the future)
 
 
+## TODO
+- fix search and info functions to work online
+- create install and remove functions
+
+
 ## Description
 null is a packet manager written in Bash to help better organize scripts and programs.
 
