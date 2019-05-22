@@ -128,25 +128,31 @@ def scan():
 
 # Main function
 def main():
+	try:
 		# Check for any arguments
 		if len(sys.argv) > 1:
 			# Store arguments in a list
 			for arg in sys.argv[1:]:
 				self.cmd.append(arg)
 
+			# Needs improvements
 			# Help
 			if "-help" in self.cmd:
 				print("Usage: scan -l [loop mode] -v [voice]")
 			# If loop mode
 			elif "-l" in self.cmd:
-				while KeyboardInterrupt:
-					scan()
-					up()
-					time.sleep(5)
-
+		
+					while True:
+						scan()
+						up()
+						time.sleep(5)		
 		# If no arguments do a one-time scan
 		else:
 			scan()
+			
+	# If CTRL-C print exit message
+	except KeyboardInterrupt:
+		print('Exit')
 
-# Run program
+# run
 main()
