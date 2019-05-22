@@ -14,4 +14,6 @@ if [[ -f /var/db/locate.database ]]; then
 else
 	printf "${Green}Database not found, building one...!${NC}\n"
 	sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.locate.plist
+	printf "${Green}Updating database...${NC}\n"
+	sudo /usr/libexec/locate.updatedb
 fi
