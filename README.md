@@ -1,7 +1,7 @@
 # null (0x00)
 A bash made packet manager manly for scripts.
 
-**Compatible with Unix/OSX.**
+**Compatible only with OSX. (will make it compatible to unix/linux in the future)**
 
 ## Contents
 * **bin**: script's folder
