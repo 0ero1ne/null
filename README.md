@@ -6,7 +6,8 @@ A bash packet manager manly for scripts.
 
 ## Description
 null is a packet manager written in Bash to help better organize scripts and programs.
-Has different functions built-in to help the user manage every single package.
+
+Has different built-in functions to help the user manage every package.
 
 List
 ```
