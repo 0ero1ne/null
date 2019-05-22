@@ -4,7 +4,7 @@ A bash made packet manager for scripts.
 **Compatible with Unix/OSX.**
 
 ## Contents
-* **bin**: folder where all scripts are stored
+* **bin**: script's folder
 
 ## Notes
 It's a really big project for me and I don't know how far I can go, suggestions are welcome.
