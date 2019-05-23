@@ -1,13 +1,28 @@
 #!/usr/local/bin/bash
-# shows this help
-# see on github 
-# software manager for scripts
+# packet manager
+# 
+# packet manager for scripts and software made in bash
 
 # TODO
-# - fix todo output
+# - install function
+#	.I have to choose between hosting a private server to have all the scripts in
+#	.a remote folder or it gets tricky
+# - delete function
+#	.See above
+# - update function (needs improvement)
+#	.Currently the only way I can update the packet manage is via git
+# - search function (has to work both online and locally)
+#	.To GET the list of files from a github an API must be used and there is daily
+#	.limit unless a client_id is used. I might have to host it in a private server.
+# - organize null using functions
+#	.MUST clean the code and create functions for each arguments
 # EOT
 
-current_version=0.2-a5-rev3
+#################################################################################
+# Variables																		
+server=https://raw.githubusercontent.com/0ero1ne/null/master/					# server address
+current_version=0.2-a5-rev3														# current version
+local_path=$(dirname "$0")
 
 # Visual output
 printf "\n${Red}%14s\n" "^"
@@ -15,42 +30,43 @@ printf "\n${Red}%14s\n" "^"
 printf "${Yellow}%12s${NC} [${Blue}%s${NC}]\n\n" ".null" "$current_version"
 #printf "\t${NC}[${Blue}%s${NC}]\n\n" 
 
+#################################################################################
+# argument parser
 case $1 in
-	"-l")
-		# List of all installed scripts
+	# List of all installed scripts
+	"-l")	
 		# Iterate all the file in the bin folder
-		for f in $(dirname "$0")/bin/*; do
-			# Check if the first char of the script is a #
-			if [[ "$(head -n 1 $f | cut -c1-1)" == "#" ]]; then 
-				
-				# Set App name as variable
-				app=$(basename $f)
-		
-				# Check if the second line has a #, means has a description
-				if [[ "$(sed -n 2p $f | cut -c1-1)" == "#" ]]; then
-					# Set app's info
-					info=$(sed -n 2p $f)
-		
-					# Output
-					printf "${Green}%12s ${Yellow}%s\n" "$app" "$info"
-    			else
-    				# If no info print standard message
-    				printf "${Green}%12s ${Red}%s\n" "$app" "(No info)"
-    			fi
-    		fi
+		for f in $local_path/bin/*; do
+			app=$(basename $f)
+			info=$(sed -n 2p $f)
+			# Output
+			printf "${Green}%12s ${Yellow}%s\n" "$app" "$info"
 		done
-		printf "\n"
 	;;
 
+	# Search function (local only)
 	"-s")
-		#'h | grep -i $1'
+		# Checks for keyword
 		if [ "$2" ]; then
-			# Search all the entries
-			output=$(null -l | grep -i "$2")
-			if [ -n "$output" ]; then
-				printf "${NC}Results:\n"
-				printf "$output\n\n"
+			# Local function
+			# Search all the entries and store it in a variable
+			local_result=$(null -l | grep -i "$2")
+			
+			# DEBUG
+			# Need improvements
+			# online=$(null -l | grep -i "$2")
+			#for x in $server_files; do
+				#printf "$(curl -s https://raw.githubusercontent.com/0ero1ne/null/master/bin/$x | sed -n "2p")\n"
+				##printf "$($x | sed -n "2p")"
+				##printf "$x\n"
+			#done
+
+			# If result is not empty print it
+			if [ -n "$local_result" ]; then
+				printf "${NC}Installed scripts:\n"
+				printf "$local_result\n\n"
 			else
+				# Error message
 				printf "${Red}\tNo results found!\n\n"
 			fi
 			
@@ -60,6 +76,7 @@ case $1 in
 		fi
 	;;
 
+	# Retrieve info from a script (local only for now)
 	"-i")
 		if [ "$2" ]; then
 			# Iterate apps
@@ -91,9 +108,10 @@ case $1 in
 		fi
 	;;
 
+	# Update function (works only for null)
 	"-u")
 		printf "${NC}Checking for updates..."
-		last_version=$(curl -s https://raw.githubusercontent.com/0ero1ne/null/master/null | grep current_version= | head -n 1 | cut -f 2 -d '=')
+		last_version=$(curl -s $server/null | grep current_version= | head -n 1 | cut -f 2 -d '=')
 		if [ $current_version == $last_version ]; then
 			printf "\n${Green}Up-to-date.\n\n"
 		else
@@ -103,6 +121,7 @@ case $1 in
 		fi
 	;;
 
+	# If no arguments print help
 	*)
 		printf "${NC}"
 		printf """\t-l to list 
@@ -113,4 +132,5 @@ case $1 in
 	;;
 esac
 
+echo
 # EOF
