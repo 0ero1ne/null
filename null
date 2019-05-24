@@ -121,7 +121,6 @@ case $1 in
 	"-u")
 		printf "${NC}Checking for updates..."
 		last_version=$(curl -s $server/null | grep current_version= | head -n 1 | cut -f 2 -d '=')
-		printf "\n$last_version\n"
 		if [ $current_version == $last_version ]; then
 			printf "\n${Green}Up-to-date.\n\n"
 		else
