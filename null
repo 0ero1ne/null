@@ -10,7 +10,7 @@
 # - organize functions for each arguments
 #	.MUST clean the code and create functions for each arguments, needed to 
 #	.avoid "spaghetti" code
-# - clean the help Output
+# - clean the help output
 
 # TODO
 # - install function
