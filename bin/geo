@@ -8,7 +8,7 @@
 #curl -s "http://ip-api.com/line/?fields=query,status,country,countryCode,region,regionName,city,zip,lat,lon,timezone,isp,org,as,mobile,proxy"
 
 # Getting information
-var="$(curl ipinfo.io 2>/dev/null)"
+var="$(curl https:/ipinfo.io/json?token=8adb7da781adfc 2>/dev/null)"
 
 # Dns
 dns="$(curl -s "http://yzuksbn7job9anl78tz9aa5i3u3sd26n.edns.ip-api.com/")"
