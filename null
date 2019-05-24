@@ -3,6 +3,15 @@
 # 
 # packet manager for scripts and software made in bash
 
+# Version
+# Current: 0.2-a5-rev3
+
+# TODO for 0.2-a5-rev4
+# - organize functions for each arguments
+#	.MUST clean the code and create functions for each arguments, needed to 
+#	.avoid "spaghetti" code
+# - clean the help Output
+
 # TODO
 # - install function
 #	.I have to choose between hosting a private server to have all the scripts in
@@ -14,8 +23,6 @@
 # - search function (has to work both online and locally)
 #	.To GET the list of files from a github an API must be used and there is daily
 #	.limit unless a client_id is used. I might have to host it in a private server.
-# - organize null using functions
-#	.MUST clean the code and create functions for each arguments
 # EOT
 
 #################################################################################
