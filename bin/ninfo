@@ -1,4 +1,4 @@
-#!/usr/local/bin/bash
+	#!/usr/local/bin/bash
 # network informations
 # 1.0
 # shows all the network informations of the local host
@@ -7,7 +7,7 @@ io=$(networksetup -getairportpower en0)
 IFS=' ' read -r -a i_o <<< "$io"
 io="${i_o[0]} ${i_o[1]} ${i_o[3]}"
 
-check_wifi=$(networksetup -getairportnetwork en0)
+check_wifi=$(networksetup -getairportnetwork en0 | head -n 1)
 
 if [[ "$check_wifi" != "You are not associated with an AirPort network." ]]; then
 	ip=$(ifconfig en0 inet | sed -n 2p | cut -f 2 -d' ')
