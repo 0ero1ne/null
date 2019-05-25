@@ -1,4 +1,4 @@
-	#!/usr/local/bin/bash
+#!/usr/local/bin/bash
 # network informations
 # 1.0
 # shows all the network informations of the local host
@@ -38,9 +38,5 @@ printf "${Green}%10s ${Red}| ${Yellow}%s \n" "Gateaway" "$gateaway"
 
 printf "${Green}%10s ${Red}| ${Yellow}%s \n" "Name" "$(scutil --get ComputerName)"
 printf "${Green}%10s ${Red}| ${Yellow}%s \n" "Hostname" "$(scutil --get HostName 2> /dev/null;
-															if [[ $? -eq 0 ]]; then
-																scutil --get HostName; 
-															else 
-																echo "None"; 
-															fi)"
+															[ -z $? ] && scutil --get HostName || echo "None")"
 printf "${Green}%10s ${Red}| ${Yellow}%s \n\n" "Localhost" "$(scutil --get LocalHostName)"
