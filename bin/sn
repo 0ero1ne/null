@@ -1,0 +1,53 @@
+#!/usr//bin/env python3
+# nmap parser
+# 0.2-b1
+# nmap parser with features
+
+
+# Libraries
+try:
+	import subprocess, sys, socket, requests, time, os
+except ImportError:
+	print("Libraries error!")
+
+
+# Scan function
+def scanner():
+	try:
+		while True:
+			# Variables
+			ip = "192.168.1.1-10"
+			subnet="32"
+			
+			# Outputs
+			os.system("clear")
+			print("\x1b[1;36m\t\t\t  0eroScanner\n")		
+			# Nmap process
+			p = str(str(subprocess.Popen(
+	                                		[r"sudo","nmap","-sn",ip+"/"+subnet],
+	                                		stdout=subprocess.PIPE).communicate()
+	                                		).split('\\n')).split('Nmap')[2:-2]
+			#############
+			# Parse data
+			for c,x in enumerate(p):
+				ip = str(str(x.split(",")[0]).split(" ")[-1]).translate({ord(i): None for i in '()'})[:-1]
+				mac = str(x.split(",")[2]).split(" ")[3]
+				
+				if len(str(x.split(",")[0]).split(" ")) < 6: 
+					name = "Unknown"
+				else:
+					name = str(x.split(",")[0]).split(" ")[4]		
+
+				print("\x1b[1;33m{0:>15} \x1b[1;31m|\x1b[1;32m {1} \x1b[1;31m|\x1b[1;35m {2}".format(ip,mac,name))						
+				# Sleep time for macvendors request
+				time.sleep(0.5)
+			# End of parser
+			###############
+			# Sleep time between each scan
+			time.sleep(6)
+	# If CTRL-C print exit message
+	except KeyboardInterrupt:
+		print('Exit')
+
+# Run
+scanner()
