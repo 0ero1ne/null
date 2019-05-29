@@ -16,8 +16,8 @@ def scanner():
 	try:
 		while True:
 			# Variables
-			ip = "192.168.1.1-10"
-			subnet="32"
+			ip = "192.168.1.1"
+			subnet="24"
 			
 			# Outputs
 			os.system("clear")
