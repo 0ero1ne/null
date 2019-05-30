@@ -30,6 +30,7 @@ def scanner():
 			#############
 			# Parse data
 			for c,x in enumerate(p):
+				#print(p)
 				ip = str(str(x.split(",")[0]).split(" ")[-1]).translate({ord(i): None for i in '()'})[:-1]
 				mac = str(x.split(",")[2]).split(" ")[3]
 				#nvendor = x.split("(")[-1][:-5]	
