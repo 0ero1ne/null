@@ -23,7 +23,8 @@ def Scanner():
 			
 			# Outputs
 			os.system("clear")
-			print("\x1b[1;35m\t\t\t  0eroScanner\n")		
+			print("\x1b[1;35m\t\t\t  0eroScanner")	
+			print("\x1b[1;32m\t\t\t--------------\n")	
 			# Nmap process
 			p = str(str(subprocess.Popen(
 	                                		[r"sudo","nmap","-sn",ip+"/"+subnet],
@@ -33,20 +34,33 @@ def Scanner():
 			# Parse data
 			for c,x in enumerate(p):
 				############## DEBUG
-				#print(x)
+				#print(x.split(","),"\n")
 				############## EOD
+				# IP
 				ip = str(str(x.split(",")[0]).split(" ")[-1]).translate({ord(i): None for i in '()'})[:-1]
-				if "MAC" in x.split(",")[2]:
+
+				# Name
+				if len(str(x.split(",")[0]).split(" ")) is 6:
+					name = str(x.split(",")[0]).split(" ")[-2]
+				else:
+					name = "Hostname unknown"
+					
+				# MAC
+				if "MAC" in x.split(",")[2][2:5]:
 					mac = str(x.split(",")[2]).split(" ")[3]
-					nvendor = x.split("(")[-1][:-5]
 				else:
+					mac = "--:--:--:--:--:--"
+				
+				# Vendor
+				if "Illegal" in x.split(",")[-2]:
 					nvendor = "Unknown"
-					mac = "Unknown"
-				if len(str(x.split(",")[0]).split(" ")) < 6: 
-					name = "Unknown"
 				else:
-					name = str(x.split(",")[0]).split(" ")[4]		
-				print("\x1b[1;33m{0:>15} \x1b[1;31m|\x1b[1;32m {1} \x1b[1;31m|\x1b[1;35m {2} \x1b[1;34m({3})".format(ip,mac,name,nvendor))
+					#nvendor = x.split(",")[-2]
+					nvendor = str(x.split(",")[-2]).split("(")[-1][:-2]
+					
+				# Output
+				print("\x1b[1;33m{0:>15} \x1b[1;31m|\x1b[1;32m {1} \x1b[1;31m|\x1b[1;35m {2} \x1b[1;31m({3})".format(ip,mac,name,nvendor))
+
 				host_current.append(mac)
 				# Sleep time for macvendors request
 				time.sleep(0.5)
@@ -56,11 +70,11 @@ def Scanner():
 			for x in host_current:
 				if x not in host_list:
 					host_list.append(x)
-					os.system("say +")
+					#os.system("say +")
 			for y in host_list:
 				if y not in host_current:
-					os.system("say -")
 					host_list.remove(y)
+					#os.system("say -")
 			# End of check
 			###############
 			# Sleep time between each scan
