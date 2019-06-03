@@ -3,4 +3,4 @@
 # 1.0
 # Generate a random MAC address
 
-printf "\n${Green}Random MAC: ${NC}%s\n\n" "$(openssl rand -hex 6 | sed 's/\(..\)/\1:/g; s/.$//' | awk '{ print toupper($0) }')"
+printf "\n${Green}Random MAC: ${NC}%s\n\n" "$(openssl rand -hex 6 | sed 's/\(..\)/\1:/g; s/.$//' | tr a-z A-Z)"
