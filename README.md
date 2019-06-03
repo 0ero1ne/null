@@ -1,12 +1,12 @@
 # null (0x00)
 A bash packet manager manly for scripts.
 
-**Compatible with OSX.** (unix/linux in the future)
+**Compatible with OSX.** (linux in the future)
 
 
 ## TODO
-- fix search and info functions to work online
-- create install and remove functions
+Unfortunately I have to give up on the search function for now.
+TODO list standby for now.
 
 
 ## Description
