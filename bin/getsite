@@ -1,0 +1,12 @@
+#!/usr/local/bin/bash
+# get me this website
+# 0.2-a1
+# download an entire website using recursive option
+
+if [ "$1" ]; then
+	printf "\nDownloading...\t"
+	wget -mkEpnp $1 -P /tmp/ 2>/dev/null
+	printf "\rDONE\null"
+else
+    printf "${Red}Give me the website!\n"
+fi
