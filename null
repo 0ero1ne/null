@@ -43,7 +43,7 @@ printf "${Yellow}%12s${NC} [${Blue}%s${NC}]\n\n" ".null" "$current_version"
 # argument parser
 case $1 in
 	# List of all installed scripts
-	"-l")	
+	"-l")
 		# Iterate all the file in the bin folder
 		for f in $local_path/bin/*; do
 			app=$(basename $f)

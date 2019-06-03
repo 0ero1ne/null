@@ -1,10 +1,10 @@
 #!/usr/local/bin/bash
-# pattern info
+# shows and copy path into clipboard
 # 1.0
 # Return pattern of file/folder and copy it into clipboard
 
 if [[ -f "$1" ]] || [[ -d "$1" ]]; then
-	printf "${Green}Copied ~ ${Yellow}$PWD/$1${NC}\n"; $(printf "$PWD/$1" | pbcopy)
+	printf "\n${Green}Copied ~ ${Yellow}$PWD/$1${NC}\n\n"; $(printf "$PWD/$1" | pbcopy)
 else
 	printf "${Red}Give me an input!\n"
 fi

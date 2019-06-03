@@ -4,12 +4,12 @@
 # generate MD5, SHA256, SHA512, Whirlpool hashed from a string
 
 if [[ ${#} -gt 0 ]]; then
-    printf "${Green}Generating hashes...\n"
-    printf " ${Red}MD5: ${NC}" ; echo $1 | openssl dgst -md5 -r | cut -d ' ' -f 1
-    printf " ${Red}SHA256: ${NC}" ; echo $1 | openssl dgst -sha256 -r | cut -d ' ' -f 1
-    printf " ${Red}SHA512: ${NC}" ; echo $1 | openssl dgst -sha512 -r | cut -d ' ' -f 1
-    printf " ${Red}Whirlpool: ${NC}" ; echo $1 | openssl dgst -whirlpool -r | cut -d ' ' -f 1
-    #printf "\n"
+    printf "\n${Yellow}Generating hashes...\n\n"
+    printf " ${Blue}MD5: ${NC}" ; echo $1 | openssl dgst -md5 -r | cut -d ' ' -f 1
+    printf " ${Blue}SHA256: ${NC}" ; echo $1 | openssl dgst -sha256 -r | cut -d ' ' -f 1
+    printf " ${Blue}SHA512: ${NC}" ; echo $1 | openssl dgst -sha512 -r | cut -d ' ' -f 1
+    printf " ${Blue}Whirlpool: ${NC}" ; echo $1 | openssl dgst -whirlpool -r | cut -d ' ' -f 1
+    printf "\n"
 else
-    printf "${Green}Give me a string to encrypt!\n"
+    printf "${Red}Give me a string to encrypt!\n"
 fi
