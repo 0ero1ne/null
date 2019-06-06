@@ -23,7 +23,7 @@ def Scanner():
 			
 			# Outputs
 			os.system("clear")
-			print("\x1b[1;35m\t\t\t  0eroScanner")	
+			print("\x1b[1;35m\t\t\t  0eroParser")	
 			print("\x1b[1;32m\t\t\t--------------\n")	
 			# Nmap process
 			p = str(str(subprocess.Popen(
