@@ -7,7 +7,7 @@
 # Current: 0.2-a5-rev3
 
 # TODO for 0.2-a5-rev4
-# - organize functions for each arguments
+# - use getopts <- PRIORITY
 #	.MUST clean the code and create functions for each arguments, needed to 
 #	.avoid "spaghetti" code
 # - clean the help output
