@@ -9,7 +9,8 @@
 # - brainstorm!
 # EOT
 
-#################################################################################
+#--------------------------------------------------------------------------------
+
 # server address
 declare -g server=''
 # current version
@@ -22,11 +23,12 @@ declare -g server='https://raw.githubusercontent.com/0ero1ne/null/master/null'
 # Libraries
 source $local_path/lib/0x00.sh
 
-# Output version
+#--------------------------------------------------------------------------------
+
+# Version
 printf "\n${Yellow}%12s${NC} [${Blue}%s${NC}]\n\n" ".null" "$current_version"
 #printf "\t${NC}[${Blue}%s${NC}]\n\n" 
 
-#################################################################################
 # argument parser
 [ $# -eq 0 ] && null_usage;
 while getopts "ls:i:u" opt; do
