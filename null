@@ -1,4 +1,4 @@
-#!/usr/local/bin/bash
+#!/usr/bin/env bash
 # packet manager
 # 
 # packet manager for scripts and software made in bash
@@ -7,10 +7,7 @@
 # Current: 0.2-a5-rev3
 
 # TODO for 0.2-a5-rev4
-# - use getopts <- PRIORITY
-#	.MUST clean the code and create functions for each arguments, needed to 
-#	.avoid "spaghetti" code
-# - clean the help output
+# Done!
 
 # TODO
 # - install function
@@ -26,120 +23,33 @@
 # EOT
 
 #################################################################################
-# Variables
 # server address
-server=https://raw.githubusercontent.com/0ero1ne/null/master/
+declare -g server=''
 # current version
-current_version=0.2-a5-rev3
-local_path=$(dirname "$0")
+declare -g current_version=0.2-a5-rev3
+# Script path
+declare -g local_path=$(dirname "$0")
+# Server url
+declare -g server='https://raw.githubusercontent.com/0ero1ne/null/master/null'
 
-# Visual output
-printf "\n${Red}%14s\n" "^"
-# Version
-printf "${Yellow}%12s${NC} [${Blue}%s${NC}]\n\n" ".null" "$current_version"
+# Libraries
+source $local_path/lib/0x00.sh
+
+# Output version
+printf "\n${Yellow}%12s${NC} [${Blue}%s${NC}]\n\n" ".null" "$current_version"
 #printf "\t${NC}[${Blue}%s${NC}]\n\n" 
 
 #################################################################################
 # argument parser
-case $1 in
-	# List of all installed scripts
-	"-l")
-		# Iterate all the file in the bin folder
-		for f in $local_path/bin/*; do
-			app=$(basename $f)
-			info=$(sed -n 2p $f)
-			# Output
-			printf "${Green}%12s ${Yellow}%s\n" "$app" "$info"
-		done
-	;;
+[ $# -eq 0 ] && null_usage;
+while getopts "ls:i:u" opt; do
+	case $opt in
+		l) null_list ;;			# List of all installed scripts
+		s) null_search ;;		# Search function (local only)
+		i) null_info ;;			# Retrieve info from a script (local only for now)
+		u) null_update ;;		# Update function (works only for null)
+		h | *) null_usage ;; 	# If no arguments print help
+	esac
+done
 
-	# Search function (local only)
-	"-s")
-		# Checks for keyword
-		if [ "$2" ]; then
-			# Local function
-			# Search all the entries and store it in a variable
-			local_result=$(null -l | grep -i "$2")
-			
-			# DEBUG
-			# Need improvements
-			# online=$(null -l | grep -i "$2")
-			#for x in $server_files; do
-				#printf "$(curl -s https://raw.githubusercontent.com/0ero1ne/null/master/bin/$x | sed -n "2p")\n"
-				##printf "$($x | sed -n "2p")"
-				##printf "$x\n"
-			#done
-
-			# If result is not empty print it
-			if [ -n "$local_result" ]; then
-				printf "${NC}Installed scripts:\n"
-				printf "$local_result\n\n"
-			else
-				# Error message
-				printf "${Red}\tNo results found!\n\n"
-			fi
-			
-		else
-			# Error message for empty argument
-			printf "${Red}%28s\n\n" "Give me a key to search!"
-		fi
-	;;
-
-	# Retrieve info from a script (local only for now)
-	"-i")
-		if [ "$2" ]; then
-			# Iterate apps
-			# DEPRECATE; WILL USE FIND INSTEAD?
-			for f in $(dirname "$0")/bin/*; do
-				# If the argument match the name of the app
-				# Pars information
-	    		if [[ "$(basename $f)" == "$2" ]]; then	    	
-	    			# HEAD
-	    			printf "${NC}Name: ${Green}$(basename $f)$NC\n"
-	    			# Version
-	    			printf "${NC}Version:${Green}$(cat $f | sed -n '3p' | cut -d '#' -f 2)\n"
-	    			# Description
-	    			printf "${NC}Description:${Green}$(cat $f | sed -n '4p' | cut -d '#' -f 2)\n"
-	    			# if TODO exist print the list
-	    			if [[ $(cat $f | sed -n '/# TODO/,/# EOT/p') ]];then
-	    				printf "${NC}TODO:${Green}\n$(cat $f | sed -n '/# TODO/,/# EOT/p' | sed '1d;$d' | cut -f 2 -d '#')\n"
-	    			fi
-	    			# App found, exit 0
-	    			echo	
-	    			exit 0
-    			fi
-			done
-			# Loop end, return error message
-			printf "${Red}\tApp not found!\n\n"
-		else
-			# Error message for empty argument
-			printf "${Red}%25s\n\n" "Give me an app name!"
-		fi
-	;;
-
-	# Update function (works only for null)
-	"-u")
-		printf "${NC}Checking for updates..."
-		last_version=$(curl -s $server/null | grep current_version= | head -n 1 | cut -f 2 -d '=')
-		if [ $current_version == $last_version ]; then
-			printf "\n${Green}Up-to-date.\n\n"
-		else
-			printf "\n\nA new version has been found!\n"
-			printf "\n${Red}Current version: ${NC}$current_version"
-			printf "\n${Green}  Newer version: ${NC}$last_version\n\n"
-		fi
-	;;
-
-	# If no arguments print help
-	*)
-		printf "${NC}"
-		printf """\t-l to list 
-\t-s to search 
-\t-i to info
-\t-u to update
-\n"""
-	;;
-esac
-
-echo
 # EOF
