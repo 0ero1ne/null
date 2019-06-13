@@ -20,6 +20,7 @@ declare -g local_path=$(dirname "$0")
 # Server url
 declare -g server='https://raw.githubusercontent.com/0ero1ne/null/master/null'
 
+
 # Libraries
 source $local_path/lib/0x00.sh
 

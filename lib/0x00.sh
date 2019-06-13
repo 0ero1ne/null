@@ -90,7 +90,7 @@ function null_update() {
 	printf "${NC}Checking for updates...\n"
 	last_version=$(curl -s $server | grep current_version= | head -n 1 | cut -f 2 -d '=')
 	if [ $current_version == $last_version ]; then
-		printf "\n${Green}Up-to-date.\n\n"
+		printf "${Green}Up-to-date.\n\n"
 		return $TRUE
 		exit 0
 	else
