@@ -74,12 +74,13 @@ function null_info() {
 		 		printf "${NC}TODO:${Green}\n$(cat $f | sed -n '/# TODO/,/# EOT/p' | sed '1d;$d' | cut -f 2 -d '#')\n"
 			fi
 			# App found, exit 0
-			echo	
+			return $TRUE
 			exit 0
 	 	fi
 	done
 	# Loop end, return error message
 	printf "${Red}\tNothing found!\n\n"
+	# RETURN?
 }
 
 #---------------------------------------------------------------
