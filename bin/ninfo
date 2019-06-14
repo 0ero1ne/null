@@ -10,7 +10,7 @@ io="${i_o[0]} ${i_o[1]} ${i_o[3]}"
 check_wifi=$(networksetup -getairportnetwork en0 | head -n 1)
 
 if [[ "$check_wifi" != "You are not associated with an AirPort network." ]]; then
-	ip=$(ifconfig en0 inet | sed -n 2p | cut -f 2 -d' ')
+	ip=$(ipconfig getifaddr en0)
 
 	wifi=$(networksetup -getairportnetwork en0)
 	wifi=${wifi:23}

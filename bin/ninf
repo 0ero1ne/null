@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# Description here
+
+for i in $(ifconfig -l); do
+	ip=$(ipconfig getifaddr $i)
+	if [ $? -eq 0 ]; then
+		mac=$(ifconfig $i ether | sed -n 2p | cut -f 2 -d ' ')
+		gateaway=$(netstat -nr | grep default | head -n 1 | cut -f 13 -d ' ')
+		broadcast=$(ifconfig en0 | grep 'broadcast' | awk '{print $6}')
+
+		printf "\n${Red}%12s\n" "^"
+		printf "${Green}%10s ${Red}| ${Yellow}%s \n" "Interface" "$i"
+		printf "${Green}%10s ${Red}| ${Yellow}%s \n" "IP" "$ip"
+		printf "${Green}%10s ${Red}| ${Yellow}%s \n" "Mac" "${mac^^}"
+		printf "${Green}%10s ${Red}| ${Yellow}%s \n" "Gateaway" "$gateaway"
+		printf "${Green}%10s ${Red}| ${Yellow}%s \n" "Broadcast" "$broadcast"
+		printf "${Green}%10s ${Red}| ${Yellow}%s \n" "Name" "$(scutil --get ComputerName)"
+	fi
+done
+echo
