@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
-# Description here
+# interface information 2
+# 1.0
+# shows active network interfaces information
 
 for i in $(ifconfig -l); do
 	ip=$(ipconfig getifaddr $i)
