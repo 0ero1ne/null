@@ -1,0 +1,14 @@
+#!/usr/local/bin/bash
+# simpler hosts scanner
+# 1.0
+# scan host from in a local network from 1 to 255
+
+for ip in $(seq 255); do
+  ping -c 1 -W 0 192.168.1.$ip &> /dev/null
+  if [ $? -eq 0 ]; then 
+    echo "192.168.1.$ip is alive"
+  else
+    echo "192.168.1.$ip ..."
+  fi
+  sleep 0.2
+done

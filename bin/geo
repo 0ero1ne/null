@@ -32,5 +32,6 @@ printf "\n${Green}%10s ${Red}| ${Yellow}%s" "Region" "$region"
 printf "\n${Green}%10s ${Red}| ${Yellow}%s" "Country" "$country"
 printf "\n${Green}%10s ${Red}| ${Yellow}%s" "Loc" "$loc"
 #printf "\n${Green}%10s ${Red}| ${Yellow}%s" "Postal" "$postal"
-printf "\n${Green}%10s ${Red}| ${Yellow}%s\n" "Org" "$org"
+printf "\n${Green}%10s ${Red}| ${Yellow}%s\n\n" "Org" "$org"
 #printf "\n${Green}%10s ${Red}| ${Yellow}%s\n\n" "Dns" "$dns"
+
