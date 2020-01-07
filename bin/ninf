@@ -6,7 +6,7 @@
 for i in $(ifconfig -l); do
 	ip=$(ipconfig getifaddr $i)
 	if [ $? -eq 0 ]; then
-		mac=$(ifconfig $i ether | sed -n 2p | cut -f 2 -d ' ')
+		mac=$(ifconfig $i ether | sed -n 3p | cut -f 2 -d ' ')
 		gateaway=$(netstat -nr | grep default | head -n 1 | cut -f 13 -d ' ')
 		broadcast=$(ifconfig en0 | grep 'broadcast' | awk '{print $6}')
 
