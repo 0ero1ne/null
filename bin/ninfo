@@ -19,10 +19,10 @@ if [[ "$check_wifi" != "You are not associated with an AirPort network." ]]; the
 else
 	ip='Not connected to a network'
 	wifi='Not connected to a network'
-    broadcast='Not connected to a network'
+  broadcast='Not connected to a network'
 fi
 
-imac=$(ifconfig en0 ether | head -n2 | tail -n 1)
+imac=$(ifconfig en0 ether | tail -n 1)
 IFS=' ' read -r -a mac <<< "$imac"
 
 gateaway=$(netstat -nr | grep default | head -n 1 | cut -f 13 -d ' ')
@@ -37,6 +37,5 @@ printf "${Green}%10s ${Red}| ${Yellow}%s \n" "Broadcast" "$broadcast"
 printf "${Green}%10s ${Red}| ${Yellow}%s \n" "Gateaway" "$gateaway"
 
 printf "${Green}%10s ${Red}| ${Yellow}%s \n" "Name" "$(scutil --get ComputerName)"
-printf "${Green}%10s ${Red}| ${Yellow}%s \n" "Hostname" "$(scutil --get HostName 2> /dev/null;
-															[ -z $? ] && scutil --get HostName || echo "None")"
+printf "${Green}%10s ${Red}| ${Yellow}%s \n" "Hostname" "$(scutil --get HostName || echo "None")"
 printf "${Green}%10s ${Red}| ${Yellow}%s \n\n" "Localhost" "$(scutil --get LocalHostName)"
