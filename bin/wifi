@@ -70,7 +70,8 @@ case $1 in
 			printf "${Red}Please give me a channel.\n"
 		fi
 	;;
-	*) printf """${Green}$(basename $0)${NC} is a network tool.
+	*) printf """
+${Green}$(basename $0)${NC} is a network tool.
 
 ${Yellow}Usage:${NC}
   -s scan		Scan networks 
