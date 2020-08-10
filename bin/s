@@ -13,28 +13,60 @@ declare -A ENGINES=(
 		[urban]='https://www.urbandictionary.com/define.php?term='$2''
 		)
 
+declare -A WORDS=(
+		[google]='https://www.google.com/search?q='$2''
+		[reddit]='https://www.google.com/search?q='$2'+site:reddit.com'
+		[quora]='https://www.google.com/search?q='$2'+site:quora.com'
+		[duckduckgo]='https://duckduckgo.com/?q='$2''
+		[youtube]='https://www.youtube.com/results?search_query='$2''
+		[urban]='https://www.urbandictionary.com/define.php?term='$2''
+		)
+
 
 if [ $# -ge 2 ]; then
 	if [ "$1" == "all" ]; then
+    open -a firefox
 		for K in "${!ENGINES[@]}"; do
 			printf "${Green}Searching ${Yellow}$2 ${Green}on ${Yellow}$K ${Green}...\n"
 			open -a firefox -g "${ENGINES[$K]}"
 		done
+
+  elif [ "$1" == "words" ]; then
+    open -a firefox
+		for K in "${!WORDS[@]}"; do
+			printf "${Green}Searching ${Yellow}$2 ${Green}on ${Yellow}$K ${Green}...\n"
+			open -a firefox -g "${WORDS[$K]}"
+		done
+    
 	else
 		if [[ ${ENGINES[$1]+_} ]]; then
+      open -a firefox
 			printf "${Green}Searching ${Yellow}$2 ${Green}on ${Yellow}$1 ${Green}...\n"
 			open -a firefox -g "${ENGINES[$1]}"
 		else 
 			printf "${Red}No engine found...\n"
 		fi
 	fi
+
 else
 	printf "\ns ${Green}[engine] ${Yellow} query"
-	printf " \n ${Green} [all] ${Yellow}    search with every engines available"
-	printf "\n\nEngines:\n${Red}"
-	for K in "${!ENGINES[@]}";
+	printf "\n${NC}s ${Green}[words] ${Yellow}  query"
+  printf "\n${NC}s ${Green}[all] ${Yellow}    search with every engines available"
+
+
+  printf "\n\nWords:\n${Red}"
+
+  for K in "${!WORDS[@]}";
 	do
 		printf "\t$K\n"
 	done
-	printf "\n"
+
+  printf "\n\n${Yellow}Engines:\n${Red}"
+
+  for K in "${!ENGINES[@]}";
+	do
+		printf "\t$K\n"
+	done
+
+  printf "\n"
 fi
