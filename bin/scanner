@@ -1,0 +1,31 @@
+#!/usr/local/bin/python3
+# port scanner
+# 0.1
+# scan a range of ports given a host IP
+
+import socket
+import sys
+
+socket.setdefaulttimeout(1)
+
+def portScanner(h, sp, ep):
+    print("\nScanning {} from {} to {}\n".format(h, sp, ep))
+    for port in range(int(sp), int(ep)):
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+        if not s.connect_ex((h,port)):
+            print("[+] Port {} is open".format(port))
+        
+        s.close()
+
+
+def main():
+    if len(sys.argv) == 4:
+        host = sys.argv[1]
+        start_port = sys.argv[2]
+        end_port = sys.argv[3]
+        portScanner(host, start_port, end_port)
+    else:
+        print("Usage: port_scanner.py HOST START_PORT END_PORT")
+
+main()
