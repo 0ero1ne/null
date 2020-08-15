@@ -9,7 +9,7 @@
 # - improve search function (grep details of each script)
 # EOT
 
-# Needs to create an installer for dependencies.
+# Need to create an installer for dependencies.
 # - brew
 # - python3
 # - bash 5.X
