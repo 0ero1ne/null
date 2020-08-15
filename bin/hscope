@@ -1,35 +1,32 @@
 #!/usr/local/bin/python3
 # horoscope
-# 0.8
-# pars the horoscope from freewillastrology.com
+# 0.9
+# parse the horoscope from freewillastrology.com
 
-import urllib.request
+import requests
 import sys
+
+from bs4 import BeautifulSoup
 
 list = ['aries','taurus','gemini','cancer','leo','virgo','libra','scorpio','sagittarius','capricorn','aquarius','pisces']
 
-if len(sys.argv) > 1:
-	if str(sys.argv[1]).lower() not in list:
-		print('Sign not valid!')
-	else:
-		sign = sys.argv[1]
-		sign = sign.upper()
-	
-		html = urllib.request.urlopen("https://www.freewillastrology.com/horoscopes/printer-friendly")
-		mybytes = html.read()
-		html.close()
-	
-		mybytes = str(mybytes).split('\\n')
-		
-		print("\n")
+if len(sys.argv) > 1 and sys.argv[1].lower() in list:
+    horoscope = sys.argv[1].lower()
+    
+    try:
+        r = requests.get('https://freewillastrology.com/horoscopes/' + horoscope)
+        soup = BeautifulSoup(r.text, 'lxml')
 
-		for c,x in enumerate(mybytes):
-			if sign in x:
-				x = x.split(' ')[13:16]
-				x[0] = x[0][:-5]
-				x = " ".join(x)
-				print(x+")","\n\n",mybytes[c+2][14:-2].replace("\\",""))
-		print("\n")
+        html = str(soup).split("\n")
+        sign = html[93][4:-6].split("</h1>")[0]
+        date = html[93][4:-6].split("</h1>")[1]
+        text = html[95][14:]
 
+        print("\n" + sign + " -" + date)
+        print("\n" + text)
+    except:
+        print("Site not reachable.")
 else:
-	print('Give me a sign!')
+    print("Give me a sign")
+    exit(1)
+
