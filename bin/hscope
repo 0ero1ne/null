@@ -1,32 +1,35 @@
 #!/usr/local/bin/python3
-# horoscope
-# 0.9
-# parse the horoscope from freewillastrology.com
+# weekly horoscope
+# 1.0
+# gives the weekly horoscope from www.freewillastrology.com
+
 
 import requests
 import sys
-
+import argparse
 from bs4 import BeautifulSoup
 
-list = ['aries','taurus','gemini','cancer','leo','virgo','libra','scorpio','sagittarius','capricorn','aquarius','pisces']
+signsList = ['aries','taurus','gemini','cancer','leo','virgo','libra','scorpio','sagittarius','capricorn','aquarius','pisces']
 
-if len(sys.argv) > 1 and sys.argv[1].lower() in list:
-    horoscope = sys.argv[1].lower()
+
+parser = argparse.ArgumentParser()
+parser.add_argument("sign", help="the horoscope sign")
+args = parser.parse_args()
+
+
+if args.sign.lower() in signsList:
+    URL =  'https://www.freewillastrology.com/horoscopes/' + args.sign
     
     try:
-        r = requests.get('https://freewillastrology.com/horoscopes/' + horoscope)
-        soup = BeautifulSoup(r.text, 'lxml')
+        page = requests.get(URL)
+        soup = BeautifulSoup(page.content, 'lxml')
+    
+        star = soup.findAll("h1")[1].get_text()
+        date = soup.find("div", {"class": "fs10"}).get_text()
+        horoscope = soup.find("div", {"class": "sign_text"}).get_text().split("\r")[0]#[15:]
 
-        html = str(soup).split("\n")
-        sign = html[93][4:-6].split("</h1>")[0]
-        date = html[93][4:-6].split("</h1>")[1]
-        text = html[95][14:]
-
-        print("\n" + sign + " -" + date)
-        print("\n" + text)
+        print('\n{} - {}\n{}'.format(star, date, horoscope))
     except:
-        print("Site not reachable.")
+        print("Can't reach website.")
 else:
-    print("Give me a sign")
-    exit(1)
-
+    print("Give me a valid sign.")
