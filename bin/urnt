@@ -1,17 +1,28 @@
 #!/usr/local/bin/bash
 # website live or not
-# 0.1
+# 0.2
 # check if a website is up or down
 
-if [[ $1 ]]; then
-  for x in $(cat $1); do 
-    curl --connect-timeout 5 -s -L "$x" 1>/dev/null
-    if [[ "$?" == 0 ]]; then 
-      printf "${Green}[+] $x is up.\n"
-    else 
-      printf "${Red}[-] $x is down.\n"
-    fi
-  done
+if [[ $2 ]]; then
+  case $1 in
+    -f)
+        for x in $(cat $2); do 
+          curl --connect-timeout 5 -s -L "$x" 1>/dev/null
+            if [[ "$?" == 0 ]]; then 
+              printf "${Green}[+] $x is up.\n"
+            else 
+              printf "${Red}[-] $x is down.\n"
+            fi
+        done
+    ;;
+    -h)
+      curl --connect-timeout 5 -s -L "$2" 1>/dev/null
+      if [[ "$?" == 0 ]]; then 
+        printf "${Green}[+] $2 is up.\n"
+      else 
+        printf "${Red}[-] $2 is down.\n"
+      fi
+  esac
 else
   printf "Usage: \n\nurnt -h SITE\nurnt -f FILE\n\n"
 fi
