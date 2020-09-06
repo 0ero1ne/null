@@ -1,7 +1,7 @@
 #!/usr/local/bin/bash
-# location and info
+# geo info
 # 1.0
-# shows geo location informations and DNS server
+# display IP, ISP hostname, city, region, country, loc and org
 
 
 # Alternative
