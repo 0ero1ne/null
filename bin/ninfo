@@ -6,6 +6,9 @@
 # Flag to check if there are no interface active
 flag=0
 
+# Arrow
+printf "\n${Red}%12s\n" "^"
+
 # Loop trough each interface
 for i in $(ifconfig -l); do
 
@@ -22,7 +25,6 @@ for i in $(ifconfig -l); do
 		gateaway=$(netstat -nr | grep default | head -n 1 | cut -f 13 -d ' ')
 		broadcast=$(ifconfig $i | grep 'broadcast' | awk '{print $6}')
 
-		printf "\n${Red}%12s\n" "^"
 		printf "${Green}%10s ${Red}| ${Yellow}%s \n" "Interface" "$i"
         
         # Check if it's a wifi card
@@ -48,7 +50,7 @@ done
 
 # If not interfzce is active display an error message
 if [ $flag -eq 0 ]; then
-    printf "${Red}No active interface.\n"
+    printf "  ${Yellow}No active interface.\n"
 fi
 
 
