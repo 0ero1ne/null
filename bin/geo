@@ -1,14 +1,21 @@
 #!/usr/local/bin/bash
 # geo info
-# 1.0
+# 1.1
 # display IP, ISP hostname, city, region, country, loc and org
 
 
 # Alternative
 #curl -s "http://ip-api.com/line/?fields=query,status,country,countryCode,region,regionName,city,zip,lat,lon,timezone,isp,org,as,mobile,proxy"
 
+printf "\n${Red}%12s\n" "^"
+
 # Getting information
 var="$(curl https:/ipinfo.io/json?token=8adb7da781adfc 2>/dev/null)"
+
+if [ $? -ne 0 ]; then
+    printf "    ${Yellow}Network error.\n" 
+    exit
+fi
 
 # Dns
 #dns="$(curl -s 'http://upljo97sfvr0isrhcnp2n4n6g5uomdmk.edns.ip-api.com/')"
@@ -24,7 +31,6 @@ loc="$(<<<"$var" awk -F'"' '$2=="loc"{printf $4}')"
 org="$(<<<"$var" awk -F'"' '$2=="org"{printf $4}')"
 
 # Output
-printf "\n${Red}%12s\n" "^"
 printf "${Green}%10s ${Red}| ${Yellow}%s" "Ip" "$ip"
 printf "\n${Green}%10s ${Red}| ${Yellow}%s" "Hostname" "$hostname"
 printf "\n${Green}%10s ${Red}| ${Yellow}%s" "City" "$city"
