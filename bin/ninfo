@@ -1,41 +1,54 @@
-#!/usr/local/bin/bash
-# net info for macOS
-# 1.0
-# display WiFi I/O, SSID, local ip, mac, broadacast, gateway, name, hostname, localhost
+#!/usr/bin/env bash
+# net info
+# 1.1
+# display interface, wifi status, SSID, local IP, mac, gateway, broadcast, computername, hostname, localhost
 
-io=$(networksetup -getairportpower en0)
-IFS=' ' read -r -a i_o <<< "$io"
-io="${i_o[0]} ${i_o[1]} ${i_o[3]}"
+# Flag to check if there are no interface active
+flag=0
 
-check_wifi=$(networksetup -getairportnetwork en0 | head -n 1)
+# Loop trough each interface
+for i in $(ifconfig -l); do
 
-if [[ "$check_wifi" != "You are not associated with an AirPort network." ]]; then
-	ip=$(ipconfig getifaddr en0)
+    # Assign IP
+	ip=$(ipconfig getifaddr $i)
 
-	wifi=$(networksetup -getairportnetwork en0)
-	wifi=${wifi:23}
+    # Check if the IP was assigned
+	if [ $? -eq 0 ]; then
 
-    broadcast=$(ifconfig en0 | grep 'broadcast' | awk '{print $6}')
-else
-	ip='Not connected to a network'
-	wifi='Not connected to a network'
-  broadcast='Not connected to a network'
+        # Add to flag
+        ((flag++))
+
+        mac=$(ifconfig $i ether | sed -n 3p | cut -f 2 -d ' ')
+		gateaway=$(netstat -nr | grep default | head -n 1 | cut -f 13 -d ' ')
+		broadcast=$(ifconfig $i | grep 'broadcast' | awk '{print $6}')
+
+		printf "\n${Red}%12s\n" "^"
+		printf "${Green}%10s ${Red}| ${Yellow}%s \n" "Interface" "$i"
+        
+        # Check if it's a wifi card
+        if networksetup -getairportpower $i &>/dev/null; then
+            # Get SSID
+            wifi=$(networksetup -getairportnetwork $i)
+            wifi=${wifi:23}
+            
+            printf "${Green}%10s ${Red}| ${Yellow}%s \n" "WiFi" "On"
+            printf "${Green}%10s ${Red}| ${Yellow}%s \n" "SSID" "$wifi"
+        fi
+
+        printf "${Green}%10s ${Red}| ${Yellow}%s \n" "IP" "$ip"
+		printf "${Green}%10s ${Red}| ${Yellow}%s \n" "Mac" "${mac^^}"
+		printf "${Green}%10s ${Red}| ${Yellow}%s \n" "Gateaway" "$gateaway"
+		printf "${Green}%10s ${Red}| ${Yellow}%s \n" "Broadcast" "$broadcast"
+		printf "${Green}%10s ${Red}| ${Yellow}%s \n" "Name" "$(scutil --get ComputerName)"
+        printf "${Green}%10s ${Red}| ${Yellow}%s \n" "Hostname" "$(scutil --get HostName || echo "None")"
+        printf "${Green}%10s ${Red}| ${Yellow}%s \n\n" "Localhost" "$(scutil --get LocalHostName)"
+
+	fi
+done
+
+# If not interfzce is active display an error message
+if [ $flag -eq 0 ]; then
+    printf "${Red}No active interface.\n"
 fi
 
-imac=$(ifconfig en0 ether | tail -n 1)
-IFS=' ' read -r -a mac <<< "$imac"
 
-gateaway=$(netstat -nr | grep default | head -n 1 | cut -f 13 -d ' ')
-
-# Output
-printf "\n${Red}%12s\n" "^"
-printf "${Green}%10s ${Red}| ${Yellow}%s \n" "I/O" "$io"
-printf "${Green}%10s ${Red}| ${Yellow}%s \n" "SSID" "$wifi"
-printf "${Green}%10s ${Red}| ${Yellow}%s \n" "IP" "$ip"
-printf "${Green}%10s ${Red}| ${Yellow}%s \n" "Mac" "${mac[1]^^}"
-printf "${Green}%10s ${Red}| ${Yellow}%s \n" "Broadcast" "$broadcast"
-printf "${Green}%10s ${Red}| ${Yellow}%s \n" "Gateaway" "$gateaway"
-
-printf "${Green}%10s ${Red}| ${Yellow}%s \n" "Name" "$(scutil --get ComputerName)"
-printf "${Green}%10s ${Red}| ${Yellow}%s \n" "Hostname" "$(scutil --get HostName || echo "None")"
-printf "${Green}%10s ${Red}| ${Yellow}%s \n\n" "Localhost" "$(scutil --get LocalHostName)"
