@@ -1,0 +1,25 @@
+#!/usr/local/bin/python3
+# PrimeWire mirrors check
+# 1.0
+# return the available mirros for PrimeWire
+
+
+import requests
+import sys
+from bs4 import BeautifulSoup
+
+
+URL =  'https://www.primewire.vc/'
+    
+try:
+    page = requests.get(URL)
+    soup = BeautifulSoup(page.content, 'lxml')
+
+    b = soup.findAll('b')
+    
+    print('[PrimeWire Mirrors]\n')
+    print('{}'.format(str(b[4])[3:15]))
+    print('{}'.format(str(b[5])[3:15]))
+    print('{}'.format(str(b[6])[3:15]))
+except:
+    print("Can't reach website.")

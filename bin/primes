@@ -1,0 +1,32 @@
+#!/usr/local/bin/bash
+# primewire search
+# 1.0
+# search movies or tv shows using PrimeWire engine and return the link
+
+if [ -z "$1" ]; then
+    printf "${Red}Usage: ${NC}$(basename $0) ${Yellow}\"<search>\"\n"
+    exit 1
+fi
+
+search=$(echo $1 | sed "s/ /+/g")
+
+if ! curl -s "https://www.primewire.ag/?s=$search&t=y&m=m&w=q" | grep -A1 "<div class=\"index_item index_item_ie\">" | grep "title=" &>/dev/null; then
+    printf "${Red}No movies found.\n"
+    exit 1
+fi
+
+
+printf "\n\t\t\t\t\t${Blue}---[ ${Yellow}0eroPrime ${Blue}]---${NC}\n\n"
+
+while read x; do
+    printf "${Yellow}%.60s${Blue}" "$(echo -n $x | cut -d '"' -f 4)                                                          "
+    
+    # TinyUrl script
+    #curl -s "https://tinyurl.com/create.php?source=indexpage&url=https://www.primewire.ag$(echo -n $x | cut -d '"' -f 2)&alias=" | grep -i "copyinfo" | cut -d'"' -f 4
+
+    printf "${Blue}https://www.primewire.ag%s" $(echo -n $x | cut -d '"' -f 2)
+
+    echo
+done < <(curl -s "https://www.primewire.ag/?s=$search&t=y&m=m&w=q" | grep -A1 "<div class=\"index_item index_item_ie\">" | grep "title=")
+
+printf "\n\t\t\t\t\t  ${Blue}---[ ${Yellow}Done ${Blue}]---${NC}\n\n"
