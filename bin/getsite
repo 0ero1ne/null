@@ -1,12 +1,14 @@
 #!/usr/local/bin/bash
 # get me this website
-# 0.2-a1
+# 0.3
 # download an entire website using recursive option
 
 if [ "$1" ]; then
-	printf "\nDownloading (might take a while)...\t"
-	wget -mkEpnp $1 -P /tmp/ 2>/dev/null
-	printf "\rDONE\null"
+    printf "\n\t\t${Blue}---[ ${Yellow}0eroSite ${Blue}]---${NC}\n\n"
+	printf "${Yellow}[*] ${NC}Downloading (might take a while) ... \n"
+	wget -mkEpnp $1 -P /tmp/ &>/dev/null
+    printf "${Yellow}[*] ${NC}Path: /tmp/$(echo $1 | sed -e 's/^https:\/\///' | sed -e 's/^http:\/\///')\n"
+    printf "\n\t${Blue} ---[ ${Yellow}Done ${Blue}]---${NC}\n\n"
 else
     printf "${Red}Give me the website!\n"
 fi
