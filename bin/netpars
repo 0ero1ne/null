@@ -23,8 +23,7 @@ def Scanner():
 			
 			# Outputs
 			os.system("clear")
-			print("\x1b[1;35m\t\t\t  0eroParser")	
-			print("\x1b[1;32m\t\t\t--------------\n")	
+			print("\x1b[1;34m\n\t\t\t ---[ \x1b[1;33m0eroParser \x1b[1;34m]---\n")	
 			# Nmap process
 			p = str(str(subprocess.Popen(
 	                                		[r"sudo","nmap","-sn",ip+"/"+subnet],
@@ -40,7 +39,7 @@ def Scanner():
 				ip = str(str(x.split(",")[0]).split(" ")[-1]).translate({ord(i): None for i in '()'})[:-1]
 
 				# Name
-				if len(str(x.split(",")[0]).split(" ")) is 6:
+				if len(str(x.split(",")[0]).split(" ")) == 6:
 					name = str(x.split(",")[0]).split(" ")[-2]
 				else:
 					name = "Hostname unknown"
