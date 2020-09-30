@@ -16,7 +16,7 @@ printf "\n\t\t${Blue}---[ ${Yellow}0eroMirror ${Blue}]---${NC}\n\n"
 # If movie
 if [[ "$1" =~ "/movie/" ]]; then
     while read x; do
-        printf "${Yellow}Link:${NC} https://www.primewire.ag%s  " $(echo -n $x | cut -d '"' -f 2)
+        printf "${Yellow}Link:${Green} https://www.primewire.ag%s  " $(echo -n $x | cut -d '"' -f 2)
         printf "${Yellow}(${Blue}%s${Yellow}}${NC}\n" $(echo -n $x | cut -d "'" -f 2)
     done < <(/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --headless --dump-dom --disable-gpu "$1" 2>/dev/null | awk 'c&&!--c;/movie_version_link/{c=2}' | tail -n+2)
 fi
