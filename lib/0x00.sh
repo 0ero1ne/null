@@ -41,13 +41,13 @@ function null_search() {
 	# Search all the entries and store it in a variable
 	local_result=$(null -l | grep -i $OPTARG)
 	# If result is not empty print it
-	if [ -n "$local_result" ]; then
+	if [ -n "$local_result" ] || [ ! -z $local_result ]; then
 		printf "$local_result\n\n"
 		return $TRUE
 		exit 0
 	else
 		# Error message
-		printf "\n${Red}\tNo results found!\n\n"
+		printf "${Red}\tNo results found!\n\n"
 		return $FALSE
 		exit 1
 	fi				

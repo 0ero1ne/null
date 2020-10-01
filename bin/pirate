@@ -1,0 +1,22 @@
+#!/usr/local/bin/bash
+# pirates pinger
+# 0.2
+# check if each website in a given file is up or not
+
+if [ -z "$1" ]; then
+    DATA="$(cat ~/.extra/sites)"
+else
+    DATA=$1
+fi
+
+printf "\n\t ${Blue}---[ ${Yellow}0eroStatus ${Blue}]---${NC}\n\n"
+
+for SITE in $DATA; do
+    if ping -Q -t 3 -c 1 $SITE &>/dev/null; then
+        printf "%-30s ${Green}online${NC}\n" "$SITE"
+    else
+        printf "%-30s ${Red}offline${NC}\n" "$SITE"
+    fi
+done
+
+printf "\n\t   ${Blue}---[ ${Yellow}Done ${Blue}]---${NC}\n\n"

@@ -1,0 +1,14 @@
+#!/usr/local/bin/bash
+# online tools
+# 0.1
+# useful list of online tools or useful website
+
+if [ -z "$1" ]; then
+  printf "Give me a keyword.\n"
+  exit 0;
+fi
+
+for arg in "$@"
+do
+    grep -w "$arg" $(dirname $(pwd))/extra/toolink_list
+done

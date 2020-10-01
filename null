@@ -4,9 +4,9 @@
 # packet manager for scripts and software made in bash
 
 # Version
-# Current: 0.2-a5-rev4
+# Current: 0.2.3
 # TODO
-# - improve search function (grep details of each script)
+# - fix update function
 # EOT
 
 # Need to create an installer for dependencies.
@@ -21,7 +21,7 @@
 # Server 
 declare -g server='https://raw.githubusercontent.com/0ero1ne/null/master/null'
 # current version
-declare -g current_version=0.2-a5-rev3
+declare -g current_version=0.2.3
 # Script path
 declare -g local_path=$(dirname "$0")
 
@@ -44,7 +44,7 @@ while getopts "ls:i:u" opt; do
 		s) null_search ;;		# Search function (local only)
 		i) null_info ;;			# Retrieve info from a script (local only for now)
 		u) null_update ;;		# Update function (works only for null)
-		h | *) null_usage ;; 	# If no arguments print help
+		h | *) null_usage ;;    # If no arguments print help
 	esac
 done
 
