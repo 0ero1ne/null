@@ -73,6 +73,7 @@ function null_info() {
 			if [[ $(cat $f | sed -n '/# TODO/,/# EOT/p') ]];then
 		 		printf "${NC}TODO:${Green}\n$(cat $f | sed -n '/# TODO/,/# EOT/p' | sed '1d;$d' | cut -f 2 -d '#')\n"
 			fi
+            echo
 			# App found, exit 0
 			return $TRUE
 			exit 0
@@ -93,7 +94,7 @@ function null_update() {
 		printf "${Green}Up-to-date.\n\n"
 		return $TRUE
 		exit 0
-	else
+    else
 		printf "\n${Red}Current version: ${NC}$current_version"
 		printf "\n${Green}  Newer version: ${NC}$last_version\n\n"
 		return $FALSE
