@@ -9,10 +9,10 @@ declare FALSE=1
 # Help function
 function null_usage () {
 	printf """Usage: 
-	-l 	list of all scripts installed 
-	-s 	search a script using a keyword
-	-i 	informations about a script
-	-u 	check for updates
+ -l 	            list of all scripts installed 
+ -s [keyword]       search a script using a keyword
+ -i [script]        informations about a script
+ -u 	            check for updates
 \n"""
 	return $TRUE
 	exit 1
