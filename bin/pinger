@@ -30,7 +30,7 @@ from pythonping import ping
 def pingerFingering(base):
     a = ping(ip+'.'+str(base), verbose=False, count=1, timeout=1)
     if str(a).split(' ')[0] == 'Reply':
-        print(f'* {ip}.{base} is up.')
+        print(f'[*] {ip}.{base} is up')
 
 
 # Main function 
