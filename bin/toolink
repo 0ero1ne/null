@@ -10,5 +10,5 @@ fi
 
 for arg in "$@"
 do
-    grep -w "$arg" $(dirname $(pwd))/extra/toolink_list
+    grep -w "$arg" $(dirname $(pwd))/.extra/toolink_list
 done
