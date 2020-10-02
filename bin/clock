@@ -1,0 +1,113 @@
+#!/usr/local/bin/python3
+# clock
+# 0.1
+# just a basic clock that always stays in the center of the screen
+
+
+
+import time
+import os
+
+digits = [
+       ["█████",
+        "█   █",
+        "█   █",
+        "█   █",
+        "█████"],
+        
+       ["    █",
+        "    █",
+        "    █",
+        "    █",
+        "    █"],
+
+       ["█████",
+        "    █",
+        "█████",
+        "█    ",
+        "█████"],
+
+       ["█████",
+        "    █",
+        "█████",
+        "    █",
+        "█████"],
+
+       ["█   █",
+        "█   █",
+        "█████",
+        "    █",
+        "    █"],
+
+       ["█████",
+        "█    ",
+        "█████",
+        "    █",
+        "█████"],
+
+       ["█████",
+        "█    ",
+        "█████",
+        "█   █",
+        "█████"],
+
+       ["█████",
+        "    █",
+        "    █",
+        "    █",
+        "    █"],
+
+       ["█████",
+        "█   █",
+        "█████",
+        "█   █",
+        "█████"],
+
+       ["█████",
+        "█   █",
+        "█████",
+        "    █",
+        "█████"],
+       ]
+
+separator = [
+        "     ",
+        "  █  ",
+        "     ",
+        "  █  ",
+        "     "]
+
+
+# Begin the loop
+while KeyboardInterrupt:
+    os.system("clear")
+    
+    y, x = os.popen('stty size', 'r').read().split()
+    last_line=y
+
+    y=int(int(y)/2-4)
+    x=int(int(x)/2-20)
+    
+    clock = time.strftime("%H %M %S").split(" ")
+    
+    first  = digits[int(clock[0][0])]
+    second = digits[int(clock[0][1])]
+    third  = digits[int(clock[1][0])]
+    fourth = digits[int(clock[1][1])]
+    fifth  = digits[int(clock[2][0])]
+    sixth  = digits[int(clock[2][1])]
+
+    for obj in range(0,5):
+        print("\033[0;0H")
+        print("\n"*( y+int(obj) ))
+        print("%*s %s %s %s %s %s %s %s" % (x, first[obj],
+                                              second[obj],
+                                           separator[obj],
+                                               third[obj],
+                                              fourth[obj],
+                                           separator[obj],
+                                               fifth[obj],
+                                               sixth[obj]))
+    
+    print("\033[%d;0H" % (int(last_line)))
+    time.sleep(0.99)
