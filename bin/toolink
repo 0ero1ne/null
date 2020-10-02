@@ -3,12 +3,19 @@
 # 0.1
 # useful list of online tools or useful website
 
+PARENT="$( cd "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
+PARENT="${PARENT%/*}"
+
 if [ -z "$1" ]; then
-  printf "Give me a keyword.\n"
+  printf "${Red}Give me a keyword.${NC}\n"
   exit 0;
 fi
 
+printf "\n\t\t\t${Blue}---[ ${Yellow}TooLink ${Blue}]---${NC}\n\n"
+
 for arg in "$@"
 do
-    grep -w "$arg" $(dirname $(pwd))/.extra/toolink_list
+    grep -w "$arg" $PARENT/extra/toolink_list
 done
+
+printf "\n\t\t\t${Blue} ---[ ${Yellow}Done ${Blue}]---${NC}\n\n"
