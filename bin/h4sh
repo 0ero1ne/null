@@ -1,6 +1,6 @@
 #!/usr/local/bin/bash
 # hash generator
-# 1.0
+# 1.0.1
 # generate MD5, SHA256, SHA512, Whirlpool hashed from a string
 
 if [[ ${#} -gt 0 ]]; then
