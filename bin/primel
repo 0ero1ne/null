@@ -5,7 +5,7 @@
 
 
 if [ -z $1 ]; then
-    printf "${Red}Give me a valid PrimeWire link.${NC}"
+    printf "${Red}Give me a valid PrimeWire link.${NC}\n"
     exit
 fi
 
