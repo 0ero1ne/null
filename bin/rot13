@@ -1,0 +1,12 @@
+#!/bin/bash
+# rot13
+# 0.1
+# encode a string using the rot13 function
+
+if [ -z "$1" ]; then
+    printf "${Red}Give me a string.\n"
+else
+    printf "${Blue}Rot13: ${NC}"
+    printf "$*" | tr 'A-Za-z' 'N-ZA-Mn-za-m'
+    echo
+fi
