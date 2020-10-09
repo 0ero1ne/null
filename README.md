@@ -1,94 +1,51 @@
 # null (0x00)
-A bash packet manager manly for scripts.
+A bash script packet manager.
 
-**Compatible with OSX.** (linux in the future)
-
-
-## TODO
-Unfortunately I have to give up on the search function for now.
-TODO list standby for now.
-
+**Compatible with Unix** (POSIX in the future)
 
 ## Description
-null is a packet manager written in Bash to help better organize scripts and programs.
-
+null is a packet manager written in Bash to help organize scripts and programs.
 Has different built-in functions to help the user manage every package.
 
-List
+List of current binaries:
 ```
-[ 0x00 ~/Github/null ] null -l
+ + elliot ~/Github/null → null -l
 
-             ^
-       .null [0.2-a5-rev2]
+       .null [0.2.3]
 
+       alive # simpler hosts scanner
+       clock # clock
       colors # terminal colors test
           db # database manager
-         geo # location and info
-          gs # get me this website
+         geo # geo info
+     getsite # get me this website
         h4sh # hash generator
-          hs # horoscope
+      hscope # weekly horoscope
          img # image opener
+     isoburn # burn iso into USB
       macgen # MAC generator
-          ms # macshifter
-       ninfo # network informations
-          ns # network speed
-       oloot # Ogame loot calculator
-       oresm # Ogame resources calculator
-          pt # pattern info
-       pwned # pwned information
+    macshift # macshifter
+     netpars # nmap parser
+    netspeed # network speed
+       ninfo # local network informations
+      pinger # blastping (WIP)
+      pirate # pirates pinger
+      primel # PrimeWire mirror links
+      primem # PrimeWire mirrors check
+      primes # PrimeWire search
+       pscan # port scanner
+          pt # shows and copy path into clipboard
       qrcode # qrcode generator
+       rot13 # rot13
          rsa # RSA key generator
            s # search engine
-        scan # nmap parser
       secret # string crypter
      str2rev # print a string in different ways
-      wclock # world clock
+     toolink # online tools
+        urnt # website live or not
         wifi # wi-fi tool
+          wk # world clock
 
- [ 0x00 ~/Github/null ]
- ```
-
-Search
-```
- [ 0x00 ~/Github/null ] null -s network
-
-             ^
-       .null [0.2-a5-rev2]
-
-Results:
-       ninfo # network informations
-          ns # network speed
-
- [ 0x00 ~/Github/null ]
+ + elliot ~/Github/null →
 ```
 
-Info
-```
-[ 0x00 ~/Github/null ] null -i ninfo
-
-             ^
-       .null [0.2-a5-rev2]
-
-Name: ninfo
-Version: 1.0
-Description: shows all the network informations of the local host
-
- [ 0x00 ~/Github/null ]
-```
-
-Update
-```
- [ 0x00 ~/Github/null ] null -u
-
-             ^
-       .null [0.2-a5-rev2]
-
-Checking for updates...
-Up-to-date.
-
- [ 0x00 ~/Github/null ]
-```
-
-
-## Notes
-If you want to collaborate or have any question don't hesitate to contact me.

@@ -1,21 +1,25 @@
 #!/usr/local/bin/bash
 # online tools
-# 0.1
+# 0.2
 # useful list of online tools or useful website
 
 PARENT="$( cd "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
 PARENT="${PARENT%/*}"
 
-if [ -z "$1" ]; then
+if [ -z $1 ]; then
   printf "${Red}Give me a keyword.${NC}\n"
   exit 0;
 fi
 
 printf "\n\t\t\t${Blue}---[ ${Yellow}TooLink ${Blue}]---${NC}\n\n"
 
-for arg in "$@"
-do
-    grep -w "$arg" $PARENT/extra/toolink_list
-done
+if [ $# -gt 1 ]; then
+    grep -E $(echo $@ | sed 's/ /|/g') $PARENT/extra/toolink_list
+else
+    grep $1 $PARENT/extra/toolink_list 
+    if [ $? -eq 1 ]; then
+        printf "\t\t\t${Red}No results found${NC}\n"
+    fi
+fi
 
 printf "\n\t\t\t${Blue} ---[ ${Yellow}Done ${Blue}]---${NC}\n\n"
