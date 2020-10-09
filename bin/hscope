@@ -28,7 +28,7 @@ if args.sign.lower() in signsList:
         date = soup.find("div", {"class": "fs10"}).get_text()
         horoscope = soup.find("div", {"class": "sign_text"}).get_text().split("\r")[0]#[15:]
 
-        print('\n{} - {}\n{}'.format(star, date, horoscope))
+        print('\n{} - {}\n{}\n'.format(star, date, horoscope))
     except:
         print("Can't reach website.")
 else:
