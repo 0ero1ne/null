@@ -3,7 +3,6 @@
 # 1.0
 # gives the weekly horoscope from www.freewillastrology.com
 
-
 import requests
 import sys
 import argparse
