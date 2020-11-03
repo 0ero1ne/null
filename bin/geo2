@@ -5,18 +5,46 @@
 
 
 if [[ "$1" == "-h" ]]; then
-    printf "${Red}Usage:${NC} $(basename $0) -h (help) [IPs]\n"
+    printf "${Red}Usage:${NC} $(basename $0) [NONE=yourip] -h (help) [IPs] [FILE]\n"
     exit 1
 fi
 
-printf "\n\t\t${Blue}---[ ${Yellow}0eoGeo ${Blue}]---${NC}\n\n"
+printf "\n\t${Blue}---[ ${Yellow}0eoGeo ${Blue}]---${NC}\n\n\n"
 
 if [[ -z "$1" ]]; then
-    curl -s "https://ipinfo.io/"
+    GEO="$(curl -s "https://ipinfo.io/")"
+    LINES="$(echo "$GEO" | wc -l | tr -d " ")"
+
+    [ "$LINES" == "11" ] && GEO="$(echo "$GEO" | tail -10 | head -8)" || GEO="$(echo "$GEO" | tail -11 | head -9)"
+
+    for x in $(echo "$GEO" | tr -d "{"," ","}","\""); do
+        printf "${Yellow}%10s ${Red}| ${Green}%s${NC}\n" "$(echo "$x" | cut -d ":" -f1)" "$(echo "$x" | cut -d ":" -f2)"
+    done
+    echo
+elif [[ -f "$1" ]]; then
+    for y in $(cat $1); do
+        GEO="$(curl -s "https://ipinfo.io/$y")"
+        LINES="$(echo "$GEO" | wc -l | tr -d " ")"
+
+        [ "$LINES" == "11" ] && GEO="$(echo "$GEO" | tail -10 | head -8)" || GEO="$(echo "$GEO" | tail -11 | head -9)"
+
+        for x in $(echo "$GEO" | tr -d "{"," ","}","\""); do
+            printf "${Yellow}%10s ${Red}| ${Green}%s${NC}\n" "$(echo "$x" | cut -d ":" -f1)" "$(echo "$x" | cut -d ":" -f2)"
+        done
+        echo
+    done
 else
     for y in $(echo $*); do
-        curl -s "https://ipinfo.io/$y"
+        GEO="$(curl -s "https://ipinfo.io/$y")"
+        LINES="$(echo "$GEO" | wc -l | tr -d " ")"
+
+        [ "$LINES" == "11" ] && GEO="$(echo "$GEO" | tail -10 | head -8)" || GEO="$(echo "$GEO" | tail -11 | head -9)"
+
+        for x in $(echo "$GEO" | tr -d "{"," ","}","\""); do
+            printf "${Yellow}%10s ${Red}| ${Green}%s${NC}\n" "$(echo "$x" | cut -d ":" -f1)" "$(echo "$x" | cut -d ":" -f2)"
+        done
+        echo
     done
 fi
 
-printf "\n\n\t\t ${Blue}---[ ${Yellow}Done ${Blue}]---${NC}\n\n"
+printf "\n\t ${Blue}---[ ${Yellow}Done ${Blue}]---${NC}\n\n"
