@@ -3,10 +3,13 @@
 # 1.0
 # gives the weekly horoscope from www.freewillastrology.com
 
-import requests
-import sys
-import argparse
-from bs4 import BeautifulSoup
+try:
+    import requests
+    import sys
+    import argparse
+    from bs4 import BeautifulSoup
+except:
+    print("ERROR: modules failed to load.\n")
 
 signsList = ['aries','taurus','gemini','cancer','leo','virgo','libra','scorpio','sagittarius','capricorn','aquarius','pisces']
 
@@ -29,6 +32,6 @@ if args.sign.lower() in signsList:
 
         print('\n{} - {}\n{}\n'.format(star, date, horoscope))
     except:
-        print("Can't reach website.")
+        print("ERROR: can't reach the websitei or invalid request.")
 else:
-    print("Give me a valid sign.")
+    print("ERROR: give me a valid sign.")
