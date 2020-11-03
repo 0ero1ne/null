@@ -1,0 +1,22 @@
+#!/usr/local/bin/bash
+# geo location info
+# 0.1
+# display IP, ISP hostname, city, region, country, loc and org of single/MULTI IPs
+
+
+if [[ "$1" == "-h" ]]; then
+    printf "${Red}Usage:${NC} $(basename $0) -h (help) [IPs]\n"
+    exit 1
+fi
+
+printf "\n\t\t${Blue}---[ ${Yellow}0eoGeo ${Blue}]---${NC}\n\n"
+
+if [[ -z "$1" ]]; then
+    curl -s "https://ipinfo.io/"
+else
+    for y in $(echo $*); do
+        curl -s "https://ipinfo.io/$y"
+    done
+fi
+
+printf "\n\n\t\t ${Blue}---[ ${Yellow}Done ${Blue}]---${NC}\n\n"
