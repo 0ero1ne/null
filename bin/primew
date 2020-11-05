@@ -1,0 +1,57 @@
+#!/usr/local/bin/bash
+# PrimeWire streaming links
+# 0.1
+# retrieve all the streaming links
+
+
+if [ -z $1 ]; then
+    printf "${Red}Give me a valid PrimeWire link.${NC}"
+    exit
+fi
+
+printf "\n\t\t${Blue}---[ ${Yellow}0eroStream ${Blue}]---${NC}\n\n"
+
+#if [[ "https://www.primewire.ag/tv/29556-watch-mr-robot" =~ "/tv/" ]]; then printf "yes"; else printf "no"; fi
+
+# If movie
+if [[ "$1" =~ "/movie/" ]]; then
+    while read x; do
+        printf "${Yellow}Link:${NC} https://www.primewire.ag%s  " $(echo -n $x | cut -d '"' -f 2)
+        printf "${Yellow}(${Blue}%s${Yellow}}${NC}\n" $(echo -n $x | cut -d "'" -f 2)
+    done < <(/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --headless --dump-dom --disable-gpu "$1" 2>/dev/null | awk 'c&&!--c;/movie_version_link/{c=2}' | tail -n+2)
+fi
+ 
+if [[ "$1" =~ "/tv/" ]]; then
+    while read z; do
+        if [[ "$z" =~ "special" ]]; then
+            printf "${Yellow}Special ${Green}%10s${NC}" "             " #$(printf "$z" | sed -e "s/^.*special//g" | cut -d '-' -f2)
+            printf "  (${Blue}https://www.primewire.li%s${NC})\n" $(echo $z | cut -d '"' -f2)
+        else 
+            printf "${Yellow}Season ${Green}%02d ${NC}" $(printf "$z" | sed -e "s/^.*season//g" | cut -d '-' -f2)
+            printf "${Yellow}Episode ${Red}%02d ${NC}" $(printf "$z" | sed -e "s/^.*episode//g" | cut -d '-' -f2 | tr -d "\">")
+            printf "  (${Blue}https://www.primewire.li%s${NC})\n" $(echo $z | cut -d '"' -f2)
+        fi
+        
+        FULL_URL="https://www.primewire.ag"
+
+        PARSE=$(/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome \
+            --headless \
+            --dump-dom \
+            --disable-gpu \
+            "https://www.primewire.ag/$(echo $z | cut -d '"' -f2)" 2>/dev/null)
+
+        if echo "$PARSE" | grep "propper-link popper" &>/dev/null; then
+            while read -r line; do
+                printf "\t\t\t(${Green}$FULL_URL%s${NC} \t" "$(echo "$line" | grep -o "/links/go/.[^\"]*" | tr -d " ")"
+                printf "(%s)\n" "$(echo "$line" | grep -o "trackOutboundLink('.[^\']*" | cut -d "'" -f 2)"
+            done < <(echo "$PARSE" | grep "propper-link popper")
+        else
+            printf "\t\t\t(${Red}No links available${NC})\n"
+        fi
+        
+        echo
+    done < <(curl -s "$1" | grep "/tv/$(echo $1 | cut -d '/' -f5 | cut -d '-' -f1)" | tail -n+2)
+fi
+
+
+printf "\n\t\t  ${Blue}---[ ${Yellow}Done ${Blue}]---${NC}\n\n"
